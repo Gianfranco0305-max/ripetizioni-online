@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="it" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>SKILLUP - Piattaforma Avanzata di Accelerazione Scolastica</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Supabase JS Client CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <!-- Google Fonts: Inter & Outfit -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@500;700;800;900&display=swap" rel="stylesheet">
+    <!-- FontAwesome per icone -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        display: ['Outfit', 'sans-serif'],
+                    },
+                    colors: {
+                        darkBg: '#05070e',
+                        darkCard: '#0d1322',
+                        accentNeon: '#10b981',
+                        accentBlue: '#3b82f6',
+                        accentPurple: '#8b5cf6',
+                        accentPink: '#f43f5e',
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <style>
+        * {
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            background-color: #05070e;
+            color: #f8fafc;
+            font-family: 'Inter', sans-serif;
+            overflow-x: hidden;
+            margin: 0;
+            padding: 0;
+        }
+
+        .glass-card {
+            background: rgba(13, 19, 34, 0.85);
+            backdrop-filter: blur(24px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.7);
+        }
+
+        @keyframes floatBlob1 {
+            0%, 100% { transform: translate(0px, 0px) scale(1); }
+            33% { transform: translate(50px, -80px) scale(1.2); }
+            66% { transform: translate(-30px, 40px) scale(0.9); }
+        }
+
+        @keyframes floatBlob2 {
+            0%, 100% { transform: translate(0px, 0px) scale(1); }
+            33% { transform: translate(-60px, 60px) scale(1.1); }
+            66% { transform: translate(40px, -50px) scale(0.95); }
+        }
+
+        .animated-blob-1 {
+            position: absolute;
+            width: 450px;
+            height: 450px;
+            border-radius: 50%;
+            background: rgba(59, 130, 246, 0.12);
+            filter: blur(160px);
+            pointer-events: none;
+            z-index: -1;
+            animation: floatBlob1 12s ease-in-out infinite;
+        }
+
+        .animated-blob-2 {
+            position: absolute;
+            width: 450px;
+            height: 450px;
+            border-radius: 50%;
+            background: rgba(244, 63, 94, 0.12);
+            filter: blur(160px);
+            pointer-events: none;
+            z-index: -1;
+            animation: floatBlob2 15s ease-in-out infinite;
+        }
+
+        .section-view {
+            display: none;
+            min-height: 100vh;
+            width: 100%;
+            padding-top: 90px;
+            padding-bottom: 60px;
+        }
+        .section-view.active {
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+        }
+
+        .carousel-container {
+            display: flex;
+            gap: 1.25rem;
+            overflow-x: auto;
+            scroll-snap-type: x mandatory;
+            scroll-behavior: smooth;
+            -webkit-overflow-scrolling: touch;
+            padding-bottom: 1rem;
+            scrollbar-width: none;
+        }
+        .carousel-container::-webkit-scrollbar {
+            display: none;
+        }
+        .carousel-card {
+            scroll-snap-align: center;
+            flex: 0 0 88%;
+            max-width: 320px;
+            transition: transform 0.3s ease;
+        }
+        .carousel-card:hover {
+            transform: translateY(-4px);
+            border-color: rgba(244, 63, 94, 0.4);
+        }
+        @media (min-width: 768px) {
+            .carousel-card {
+                flex: 0 0 32%;
+            }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .animate-fade {
+            animation: fadeIn 0.3s ease-out forwards;
+        }
+    </style>
+</head>
+<body class="selection:bg-accentBlue selection:text-white min-h-screen flex flex-col justify-between relative">
+
+    <div class="animated-blob-1 top-10 left-10"></div>
+    <div class="animated-blob-2 top-1/2 right-10" style="animation-delay: -5s;"></div>
+
+    <!-- NAVBAR -->
+    <header class="glass-card fixed top-0 left-0 right-0 z-50 border-b border-white/10 px-4 sm:px-6 py-3.5">
+        <div class="max-w-7xl mx-auto flex justify-between items-center">
+            <a href="javascript:void(0)" onclick="switchSection('hub')" class="flex items-center gap-2.5 group">
+                <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-accentBlue to-accentPurple flex items-center justify-center font-display font-black text-lg text-white shadow-lg shadow-blue-500/20 group-hover:scale-105 transition-transform">
+                    ⚡
+                </div>
+                <div>
+                    <span class="font-display font-extrabold text-base tracking-wider text-white">SKILLUP</span>
+                    <span class="block text-[9px] font-bold text-accentNeon tracking-widest uppercase">ACADEMY</span>
+                </div>
+            </a>
+            
+            <nav class="flex items-center gap-1.5 sm:gap-3">
+                <button onclick="switchSection('hub')" class="px-3 py-2 rounded-xl text-xs font-semibold text-gray-300 hover:text-white hover:bg-white/5 transition-colors">
+                    <i class="fa-solid fa-house text-accentBlue"></i> <span class="hidden sm:inline">Home</span>
+                </button>
+                <button onclick="switchSection('bacheca')" class="px-3 py-2 rounded-xl text-xs font-semibold text-gray-300 hover:text-white hover:bg-white/5 transition-colors">
+                    <i class="fa-solid fa-clipboard-list text-accentNeon"></i> <span class="hidden sm:inline">Bacheca</span>
+                </button>
+                <button onclick="switchSection('ai-chat')" class="px-3 py-2 rounded-xl text-xs font-semibold text-gray-300 hover:text-white hover:bg-white/5 transition-colors">
+                    <i class="fa-solid fa-robot text-accentPurple"></i> <span class="hidden sm:inline">AI Bot</span>
+                </button>
+                <button onclick="openBookingModal()" class="px-4 py-2 rounded-xl text-xs font-display font-bold bg-gradient-to-r from-accentBlue to-accentPurple text-white shadow-md shadow-blue-600/30 hover:scale-105 transition-transform">
+                    Unisciti
+                </button>
+            </nav>
+        </div>
+    </header>
+
+
+    <!-- ==================== 1. HOME HUB ==================== -->
+    <section id="view-hub" class="section-view active px-4 sm:px-6">
+        <div class="max-w-6xl mx-auto w-full py-6">
+            
+            <div class="glass-card p-6 sm:p-12 rounded-3xl mb-8 relative overflow-hidden border border-white/10">
+                <div class="absolute -right-24 -top-24 w-96 h-96 bg-gradient-to-br from-blue-500/10 to-purple-500/10 rounded-full blur-3xl pointer-events-none"></div>
+
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center relative z-10">
+                    <div class="lg:col-span-7">
+                        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 text-[11px] font-bold uppercase tracking-wider mb-4">
+                            <span class="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span> Connesso a Supabase Cloud
+                        </div>
+                        <h1 class="font-display font-black text-3xl sm:text-5xl tracking-tight text-white mb-4 leading-tight">
+                            LA COMMUNITY N.1 <br>
+                            <span class="bg-gradient-to-r from-accentBlue via-accentNeon to-accentPink bg-clip-text text-transparent">DI STUDIO & RIPETIZIONI.</span>
+                        </h1>
+                        <p class="text-gray-300 text-sm sm:text-base mb-6 leading-relaxed">
+                            Piattaforma dinamica al 100%. Pubblica annunci in bacheca o connettiti direttamente con i tutor dal database.
+                        </p>
+                        <div class="flex flex-wrap gap-3">
+                            <button onclick="switchSection('bacheca')" class="px-5 py-3 rounded-xl font-display font-bold bg-accentNeon text-darkBg hover:bg-emerald-400 transition-colors shadow-lg text-xs flex items-center gap-2">
+                                <i class="fa-solid fa-clipboard-list"></i> Vai alla Bacheca Live
+                            </button>
+                            <button onclick="switchSection('ai-chat')" class="px-5 py-3 rounded-xl font-display font-bold bg-white/5 text-white hover:bg-white/10 transition-colors border border-white/10 text-xs flex items-center gap-2">
+                                <i class="fa-solid fa-robot"></i> Chiedi all'AI
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="lg:col-span-5 grid grid-cols-2 gap-3">
+                        <div class="glass-card p-4 rounded-2xl border border-white/10 text-center">
+                            <span class="block font-display font-black text-2xl text-accentBlue mb-1">Live</span>
+                            <span class="text-[11px] text-gray-400 font-medium">Database Supabase</span>
+                        </div>
+                        <div class="glass-card p-4 rounded-2xl border border-white/10 text-center">
+                            <span class="block font-display font-black text-2xl text-accentNeon mb-1">100%</span>
+                            <span class="text-[11px] text-gray-400 font-medium">Funzionante</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- CAROSELLO TUTOR DINAMICO -->
+            <div class="glass-card p-6 sm:p-10 rounded-3xl mb-8 border border-accentPink/30 relative overflow-hidden bg-gradient-to-br from-pink-950/20 via-darkCard to-purple-950/20">
+                <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-6 gap-3 relative z-10">
+                    <div>
+                        <span class="px-3 py-1 rounded-full bg-pink-500/20 text-pink-400 text-[10px] font-bold uppercase tracking-wider border border-pink-500/30">
+                            <i class="fa-solid fa-fire mr-1"></i> Radar Match in Tempo Reale
+                        </span>
+                        <h2 class="font-display font-black text-xl sm:text-2xl text-white mt-1">TUTOR DISPONIBILI DAL DATABASE</h2>
+                    </div>
+                </div>
+
+                <div id="tutor-carousel" class="carousel-container relative z-10">
+                    <div class="text-xs text-gray-400 p-4">Caricamento tutor in corso...</div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+
+    <!-- ==================== 2. BACHECA LIVE ==================== -->
+    <section id="view-bacheca" class="section-view px-4 sm:px-6">
+        <div class="max-w-5xl mx-auto w-full py-6">
+            <div class="flex flex-wrap justify-between items-center mb-6 gap-3">
+                <div>
+                    <span class="text-accentNeon text-[11px] font-bold uppercase tracking-widest"><i class="fa-solid fa-clipboard-list mr-1"></i> Bacheca Cloud</span>
+                    <h1 class="font-display font-black text-2xl sm:text-3xl text-white mt-0.5">ANNUNCI IN TEMPO REALE</h1>
+                </div>
+                <button onclick="openAnnuncioModal()" class="px-4 py-2.5 rounded-xl font-display font-bold bg-accentNeon text-darkBg hover:bg-emerald-400 shadow-lg text-xs flex items-center gap-1.5">
+                    <i class="fa-solid fa-plus"></i> Pubblica Annuncio
+                </button>
+            </div>
+
+            <div class="glass-card p-3 rounded-xl mb-5 flex gap-2">
+                <button onclick="filterAnnunci('all')" class="px-3 py-1.5 rounded-lg bg-accentNeon text-darkBg font-bold text-xs">Tutti</button>
+                <button onclick="filterAnnunci('ripetizioni')" class="px-3 py-1.5 rounded-lg bg-white/5 text-gray-300 font-bold text-xs border border-white/10">Ripetizioni</button>
+                <button onclick="filterAnnunci('appunti')" class="px-3 py-1.5 rounded-lg bg-white/5 text-gray-300 font-bold text-xs border border-white/10">Appunti</button>
+            </div>
+
+            <div id="annunci-grid" class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8">
+                <div class="text-xs text-gray-400 p-4">Caricamento annunci dalla bacheca cloud...</div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- ==================== 3. AI CHAT ==================== -->
+    <section id="view-ai-chat" class="section-view px-4 sm:px-6">
+        <div class="max-w-2xl mx-auto w-full py-6">
+            <div class="text-center mb-5">
+                <span class="px-3 py-1 rounded-full bg-purple-500/20 text-accentPurple text-[10px] font-bold border border-purple-500/30 uppercase tracking-widest">
+                    <i class="fa-solid fa-robot mr-1"></i> Assistente 24/7
+                </span>
+                <h1 class="font-display font-black text-2xl text-white mt-1">SKILLBOT AI</h1>
+            </div>
+            <div class="glass-card rounded-2xl p-4 border border-white/10 flex flex-col h-[420px]">
+                <div id="chat-messages" class="flex-1 overflow-y-auto space-y-3 pr-1 mb-3 text-xs">
+                    <div class="flex items-start gap-2.5">
+                        <div class="w-7 h-7 rounded-full bg-accentPurple flex items-center justify-center text-white text-[10px] font-bold">AI</div>
+                        <div class="glass-card p-3 rounded-xl rounded-tl-none text-gray-200 max-w-[85%]">
+                            Ciao! La piattaforma è ora connessa al database cloud. Come posso aiutarti?
+                        </div>
+                    </div>
+                </div>
+                <form onsubmit="handleAiSubmit(event)" class="flex gap-2 pt-2 border-t border-white/10">
+                    <input type="text" id="ai-input" required placeholder="Scrivi una domanda..." class="flex-1 bg-black/40 border border-white/10 rounded-xl px-3.5 py-2.5 text-xs text-white placeholder-gray-500 focus:outline-none focus:border-accentPurple">
+                    <button type="submit" class="px-4 py-2.5 rounded-xl bg-accentPurple text-white font-bold text-xs shadow-md">
+                        <i class="fa-solid fa-paper-plane"></i>
+                    </button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- MODALE MATCH & CONTATTO -->
+    <div id="booking-modal" class="fixed inset-0 bg-black/80 backdrop-blur-md z-50 hidden flex items-center justify-center p-4">
+        <div class="glass-card w-full max-w-md p-6 rounded-3xl relative border border-white/10 shadow-2xl animate-fade">
+            <button onclick="closeBookingModal()" class="absolute top-3.5 right-3.5 text-lg text-gray-400 hover:text-white w-8 h-8 rounded-full bg-white/5 flex items-center justify-center"><i class="fa-solid fa-xmark"></i></button>
+            <span id="modal-badge" class="text-accentPink text-[10px] font-bold uppercase tracking-wider"><i class="fa-solid fa-fire mr-1"></i> Connessione Istantanea</span>
+            <h2 id="modal-title" class="font-display font-black text-xl text-white mt-1 mb-3">Avvia Match</h2>
+            <form onsubmit="handleBookingSubmit(event)" class="space-y-3 text-xs">
+                <div><label class="block font-semibold text-gray-300 mb-1">Nome:</label><input type="text" id="bk-name" required placeholder="Tuo nome" class="w-full bg-black/40 border border-white/10 rounded-xl px-3.5 py-2.5 text-white"></div>
+                <div><label class="block font-semibold text-gray-300 mb-1">Materia / Esigenza:</label><input type="text" id="bk-subj" required placeholder="Es. Matematica" class="w-full bg-black/40 border border-white/10 rounded-xl px-3.5 py-2.5 text-white"></div>
+                <div><label class="block font-semibold text-gray-300 mb-1">Tuo WhatsApp:</label><input type="tel" id="bk-phone" required placeholder="Numero WhatsApp" class="w-full bg-black/40 border border-white/10 rounded-xl px-3.5 py-2.5 text-white"></div>
+                <button type="submit" class="w-full py-3 rounded-xl font-display font-bold bg-gradient-to-r from-accentPink to-accentPurple text-white shadow-md mt-2">Apri WhatsApp <i class="fa-brands fa-whatsapp ml-1"></i></button>
+            </form>
+        </div>
+    </div>
+
+
+    <!-- MODALE PUBBLICAZIONE ANNUNCIO -->
+    <div id="annuncio-modal" class="fixed inset-0 bg-black/80 backdrop-blur-md z-50 hidden flex items-center justify-center p-4">
+        <div class="glass-card w-full max-w-md p-6 rounded-3xl relative border border-white/10 shadow-2xl animate-fade">
+            <button onclick="closeAnnuncioModal()" class="absolute top-3.5 right-3.5 text-lg text-gray-400 hover:text-white w-8 h-8 rounded-full bg-white/5 flex items-center justify-center"><i class="fa-solid fa-xmark"></i></button>
+            <span class="text-accentNeon text-[10px] font-bold uppercase tracking-wider">Nuova Inserzione Cloud</span>
+            <h2 class="font-display font-black text-xl text-white mt-1 mb-3
