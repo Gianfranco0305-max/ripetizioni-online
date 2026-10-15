@@ -1,9 +1,9 @@
-<!DOCTYPE html>
+<<!DOCTYPE html>
 <html lang="it" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SKILLUP MATCH - Il Tinder delle Ripetizioni e Study Match</title>
+    <title>SKILLUP - Piattaforma Avanzata di Accelerazione Scolastica</title>
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Google Fonts: Inter & Outfit -->
@@ -20,13 +20,12 @@
                         display: ['Outfit', 'sans-serif'],
                     },
                     colors: {
-                        darkBg: '#0b0f19',
-                        darkCard: '#131c31',
-                        neonPurple: '#a855f7',
-                        neonCyan: '#06b6d4',
-                        neonLime: '#84cc16',
-                        neonPink: '#ec4899',
-                        matchPink: '#ff2d55',
+                        darkBg: '#070913',
+                        darkCard: '#0f172a',
+                        accentNeon: '#10b981',
+                        accentBlue: '#3b82f6',
+                        accentPurple: '#8b5cf6',
+                        accentPink: '#f43f5e',
                     }
                 }
             }
@@ -35,28 +34,30 @@
     
     <style>
         body {
-            background-color: #0b0f19;
-            color: #f3f4f6;
+            background-color: #070913;
+            color: #f8fafc;
             font-family: 'Inter', sans-serif;
         }
 
-        .glass-panel {
-            background: rgba(19, 28, 49, 0.7);
-            backdrop-filter: blur(16px);
+        .glass-card {
+            background: rgba(15, 23, 42, 0.75);
+            backdrop-filter: blur(20px);
             border: 1px solid rgba(255, 255, 255, 0.08);
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.7);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
-        .glass-panel:hover {
-            border-color: rgba(255, 45, 85, 0.4);
+        .glass-card:hover {
+            border-color: rgba(59, 130, 246, 0.4);
+            transform: translateY(-3px);
         }
 
-        .glow-effect {
+        .glow-sphere {
             position: absolute;
-            width: 350px;
-            height: 350px;
+            width: 400px;
+            height: 400px;
             border-radius: 50%;
-            filter: blur(140px);
+            filter: blur(150px);
             pointer-events: none;
             z-index: -1;
         }
@@ -68,140 +69,368 @@
             display: block;
         }
 
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
+        @keyframes pulseGlow {
+            0%, 100% { opacity: 0.4; }
+            50% { opacity: 0.8; }
         }
 
-        .animate-fade {
-            animation: fadeIn 0.3s ease-out forwards;
+        .animate-glow {
+            animation: pulseGlow 4s ease-in-out infinite;
         }
     </style>
 </head>
-<body class="selection:bg-matchPink selection:text-white min-h-screen flex flex-col justify-between relative overflow-x-hidden">
+<body class="selection:bg-accentBlue selection:text-white min-h-screen flex flex-col justify-between relative overflow-x-hidden">
 
-    <!-- Sfondi luminosi sfumati -->
-    <div class="glow-effect bg-pink-600/15 top-20 left-10"></div>
-    <div class="glow-effect bg-cyan-600/15 top-1/2 right-10"></div>
+    <!-- Sfondi luminosi dinamici -->
+    <div class="glow-sphere bg-blue-600/20 top-10 left-1/4 animate-glow"></div>
+    <div class="glow-sphere bg-purple-600/20 top-1/2 right-10 animate-glow" style="animation-delay: 2s;"></div>
 
     <!-- NAVBAR SUPERIORE -->
-    <header class="glass-panel sticky top-0 z-50 border-b border-white/10 px-6 py-4">
+    <header class="glass-card sticky top-0 z-50 border-b border-white/10 px-6 py-4">
         <div class="max-w-7xl mx-auto flex flex-wrap justify-between items-center">
             <a href="#" onclick="switchSection('hub')" class="flex items-center gap-3 group">
-                <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-matchPink to-neonPurple flex items-center justify-center font-display font-black text-xl text-white shadow-lg shadow-pink-500/30 group-hover:scale-105 transition-transform">
-                    🔥
+                <div class="w-11 h-11 rounded-2xl bg-gradient-to-tr from-accentBlue to-accentPurple flex items-center justify-center font-display font-black text-xl text-white shadow-lg shadow-blue-500/20 group-hover:scale-105 transition-transform">
+                    ⚡
                 </div>
-                <span class="font-display font-extrabold text-xl tracking-wide bg-gradient-to-r from-white via-gray-200 to-gray-400 bg-clip-text text-transparent">
-                    SKILLUP <span class="text-matchPink">MATCH</span>
-                </span>
+                <div>
+                    <span class="font-display font-extrabold text-xl tracking-wider text-white">SKILLUP</span>
+                    <span class="block text-[10px] font-bold text-accentNeon tracking-widest uppercase">ACADEMY & LAB</span>
+                </div>
             </a>
             
-            <nav class="flex items-center gap-2 sm:gap-4 mt-2 sm:mt-0">
-                <button onclick="switchSection('hub')" class="px-4 py-2 rounded-xl text-sm font-semibold hover:bg-white/5 transition-colors text-gray-300 hover:text-white">
-                    <i class="fa-solid fa-house mr-1.5 text-neonCyan"></i> Hub
+            <nav class="flex items-center gap-3 sm:gap-5 mt-2 sm:mt-0">
+                <button onclick="switchSection('hub')" class="px-4 py-2 rounded-xl text-sm font-medium text-gray-300 hover:text-white hover:bg-white/5 transition-colors">
+                    Home Hub
                 </button>
-                <button onclick="switchSection('tinder')" class="px-4 py-2 rounded-xl text-sm font-display font-bold bg-matchPink/20 text-matchPink border border-matchPink/30 hover:bg-matchPink/30 transition-all flex items-center gap-1.5 shadow-lg shadow-pink-500/10">
-                    <i class="fa-solid fa-fire"></i> Study Tinder
+                <button onclick="switchSection('hub'); document.getElementById('engine-section').scrollIntoView({behavior: 'smooth'})" class="px-4 py-2 rounded-xl text-sm font-medium text-gray-300 hover:text-white hover:bg-white/5 transition-colors">
+                    Smart Finder
                 </button>
-                <button onclick="openBookingModal()" class="px-5 py-2.5 rounded-xl text-sm font-display font-bold bg-gradient-to-r from-matchPink to-neonPurple text-white shadow-lg shadow-pink-600/30 hover:scale-105 transition-transform">
-                    <i class="fa-solid fa-bolt mr-1.5"></i> Diventa Tutor
+                <button onclick="openBookingModal()" class="px-5 py-2.5 rounded-xl text-sm font-display font-bold bg-gradient-to-r from-accentBlue to-accentPurple text-white shadow-lg shadow-blue-600/30 hover:scale-105 transition-transform">
+                    Accedi al Network <i class="fa-solid fa-arrow-right ml-1"></i>
                 </button>
             </nav>
         </div>
     </header>
 
 
-    <!-- ==================== MAIN HUB VIEW ==================== -->
+    <!-- ==================== HOME PAGE HUB ==================== -->
     <section id="view-hub" class="section-view active py-12 px-6">
         <div class="max-w-6xl mx-auto">
             
-            <!-- HERO SECTION -->
-            <div class="glass-panel p-8 sm:p-14 rounded-3xl mb-16 relative overflow-hidden">
-                <div class="absolute -right-20 -bottom-20 w-96 h-96 bg-matchPink/10 rounded-full blur-3xl pointer-events-none"></div>
+            <!-- HERO SECTION AGGRESSIVA -->
+            <div class="glass-card p-8 sm:p-16 rounded-3xl mb-16 relative overflow-hidden border border-white/10">
+                <div class="absolute right-0 top-0 w-1/2 h-full bg-gradient-to-l from-blue-600/10 to-transparent pointer-events-none"></div>
                 
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-10 items-center">
-                    <div>
-                        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-matchPink/10 border border-matchPink/30 text-matchPink text-xs font-semibold uppercase tracking-wider mb-4">
-                            <span class="w-2 h-2 rounded-full bg-matchPink animate-ping"></span> Il Tinder delle Ripetizioni
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
+                    <div class="lg:col-span-7 z-10">
+                        <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-accentBlue/10 border border-accentBlue/30 text-accentBlue text-xs font-bold uppercase tracking-wider mb-6">
+                            <span class="w-2 h-2 rounded-full bg-accentBlue animate-ping"></span> Metodo di Studio ad Alta Efficienza
                         </div>
-                        <h1 class="font-display font-extrabold text-4xl sm:text-6xl tracking-tight text-white mb-6 leading-tight">
-                            TROVA IL TUO MATCH <br><span class="bg-gradient-to-r from-matchPink to-neonCyan bg-clip-text text-transparent">PERFETTO DI STUDIO.</span>
+                        <h1 class="font-display font-black text-4xl sm:text-6xl tracking-tight text-white mb-6 leading-[1.1]">
+                            AZZERA I DEBITI. <br>
+                            <span class="bg-gradient-to-r from-accentBlue via-accentNeon to-accentPurple bg-clip-text text-transparent">DOMINA LA MATERIA.</span>
                         </h1>
-                        <p class="text-gray-300 text-base sm:text-lg mb-8 leading-relaxed">
-                            Basta elenchi noiosi o agenzie impersonali. Fai swipe o filtra tra i migliori tutor e compagni di studio nella tua zona in base a materie, geolocalizzazione e obiettivi.
+                        <p class="text-gray-300 text-base sm:text-lg mb-8 leading-relaxed max-w-xl">
+                            Dimentica le ripetizioni tradizionali e noiose. Un ecosistema di apprendimento visivo e strategico progettato per sbloccare i voti in tempo record.
                         </p>
                         <div class="flex flex-wrap gap-4">
-                            <button onclick="switchSection('tinder')" class="px-6 py-3.5 rounded-xl font-display font-bold bg-matchPink text-white hover:bg-pink-600 transition-colors shadow-lg shadow-pink-600/30 flex items-center gap-2">
-                                <i class="fa-solid fa-fire"></i> Inizia a fare Match
+                            <button onclick="document.getElementById('engine-section').scrollIntoView({behavior: 'smooth'})" class="px-7 py-4 rounded-xl font-display font-bold bg-accentBlue text-white hover:bg-blue-600 transition-colors shadow-lg shadow-blue-600/40 flex items-center gap-2">
+                                <i class="fa-solid fa-bolt"></i> Avvia Smart Finder
                             </button>
-                            <button onclick="document.getElementById('worlds-grid').scrollIntoView({behavior: 'smooth'})" class="px-6 py-3.5 rounded-xl font-display font-bold bg-white/10 text-white hover:bg-white/15 transition-colors border border-white/10">
-                                Esplora i Livelli
+                            <button onclick="openBookingModal()" class="px-7 py-4 rounded-xl font-display font-bold bg-white/5 text-white hover:bg-white/10 transition-colors border border-white/10 flex items-center gap-2">
+                                Richiedi Consulenza
                             </button>
                         </div>
                     </div>
 
-                    <!-- Card Tinder Preview Interattiva -->
-                    <div class="flex justify-center">
-                        <div class="glass-panel p-6 rounded-2xl w-full max-w-sm border border-matchPink/30 relative shadow-2xl">
-                            <div class="absolute -top-3 -right-3 bg-matchPink text-white font-display font-extrabold text-xs px-3 py-1 rounded-full uppercase shadow-md">
-                                🔥 98% Match
+                    <!-- WIDGET STATISTICHE / LIVE PREVIEW -->
+                    <div class="lg:col-span-5 z-10">
+                        <div class="glass-card p-6 sm:p-8 rounded-2xl border border-white/10 relative">
+                            <div class="absolute -top-3 right-6 bg-accentNeon text-darkBg font-display font-black text-[11px] px-3 py-1 rounded-full uppercase tracking-wider">
+                                99.4% Successo
                             </div>
-                            <div class="flex items-center gap-4 mb-4">
-                                <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-purple-500 to-pink-500 flex items-center justify-center font-display font-black text-2xl text-white shadow-lg">
-                                    M
+                            <div class="space-y-6">
+                                <div class="flex items-center gap-4">
+                                    <div class="w-12 h-12 rounded-xl bg-blue-500/20 text-accentBlue flex items-center justify-center text-xl font-bold">
+                                        <i class="fa-solid fa-chart-line"></i>
+                                    </div>
+                                    <div>
+                                        <h4 class="font-display font-bold text-white text-base">Media Voti in Crescita</h4>
+                                        <p class="text-xs text-gray-400">+2.5 punti recuperati in media a trimestre</p>
+                                    </div>
                                 </div>
-                                <div>
-                                    <h3 class="font-display font-bold text-white text-lg">Matteo, 21 anni</h3>
-                                    <p class="text-xs text-neonCyan"><i class="fa-solid fa-location-dot mr-1"></i> Teramo (a 1.2 km)</p>
+                                <div class="w-full bg-white/5 h-px"></div>
+                                <div class="flex items-center gap-4">
+                                    <div class="w-12 h-12 rounded-xl bg-purple-500/20 text-accentPurple flex items-center justify-center text-xl font-bold">
+                                        <i class="fa-solid fa-bolt-lightning"></i>
+                                    </div>
+                                    <div>
+                                        <h4 class="font-display font-bold text-white text-base">Zero Formule a Memoria</h4>
+                                        <p class="text-xs text-gray-400">Solo schemi mentali e logica applicata</p>
+                                    </div>
                                 </div>
-                            </div>
-                            <p class="text-sm text-gray-300 mb-4 bg-black/20 p-3 rounded-xl border border-white/5">
-                                "Specialista in Analisi Matematica e Fisica. Ti sblocco gli esami e i compiti in classe senza stress!"
-                            </p>
-                            <div class="flex gap-2 mb-4">
-                                <span class="px-2.5 py-1 rounded-full bg-white/5 text-xs text-gray-300 border border-white/10">Matematica</span>
-                                <span class="px-2.5 py-1 rounded-full bg-white/5 text-xs text-gray-300 border border-white/10">Superiori</span>
-                            </div>
-                            <div class="flex gap-3">
-                                <button onclick="switchSection('tinder')" class="flex-1 py-2.5 rounded-xl bg-matchPink text-white font-bold text-sm shadow-lg shadow-pink-600/30 hover:scale-105 transition-transform flex items-center justify-center gap-1">
-                                    <i class="fa-solid fa-heart"></i> Apri Radar Match
-                                </button>
+                                <div class="w-full bg-white/5 h-px"></div>
+                                <div class="flex items-center justify-between text-xs text-gray-400 pt-1">
+                                    <span><i class="fa-solid fa-location-dot text-accentBlue mr-1"></i> Teramo & Online</span>
+                                    <span class="text-accentNeon font-bold">Posti Disponibili</span>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <!-- SELEZIONE MONDI / FASCE SCOLASTICHE -->
-            <div id="worlds-grid" class="mb-16">
+            <!-- SEZIONE SMART FINDER (MOTORE DI RICERCA INTERATTIVO) -->
+            <div id="engine-section" class="mb-16">
                 <div class="text-center max-w-2xl mx-auto mb-12">
-                    <span class="text-neonCyan text-sm font-semibold uppercase tracking-widest">Aree Formative</span>
-                    <h2 class="font-display font-extrabold text-3xl sm:text-4xl text-white mt-2">SELEZIONA IL TUO CICLO</h2>
+                    <span class="text-accentNeon text-xs font-bold uppercase tracking-widest">Connessione Immediata</span>
+                    <h2 class="font-display font-black text-3xl sm:text-4xl text-white mt-2">TROVA IL TUO PERCORSO IDEALE</h2>
+                    <p class="text-gray-400 text-sm mt-2">Seleziona il tuo obiettivo o la tua fascia scolastica per accedere al piano dedicato.</p>
                 </div>
 
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                    <div onclick="switchSection('elementari')" class="glass-panel p-8 rounded-3xl cursor-pointer group flex flex-col justify-between transition-all duration-300 hover:-translate-y-2 hover:border-amber-400">
+                    <!-- Elementari -->
+                    <div onclick="switchSection('elementari')" class="glass-card p-8 rounded-3xl cursor-pointer group flex flex-col justify-between">
                         <div>
                             <div class="flex justify-between items-center mb-6">
-                                <span class="px-3 py-1 rounded-full bg-amber-500/20 text-amber-300 text-xs font-bold border border-amber-500/30">ZONE 01</span>
+                                <span class="px-3 py-1 rounded-full bg-amber-500/20 text-amber-300 text-xs font-bold border border-amber-500/30">LIV. 01</span>
                                 <span class="text-3xl">🎨✨</span>
                             </div>
                             <h3 class="font-display font-bold text-2xl text-white mb-3 group-hover:text-amber-300 transition-colors">Scuola Elementare</h3>
-                            <p class="text-gray-300 text-sm mb-6 leading-relaxed">Vibe Manga & Anime pulita. Impara attraverso storie interattive e giochi logici.</p>
+                            <p class="text-gray-300 text-sm mb-6 leading-relaxed">Vibe visiva e ludica. Imparare attraverso storie interattive, logica e superpoteri grafici.</p>
                         </div>
-                        <div class="flex items-center justify-between text-amber-300 font-display font-bold text-sm">
-                            <span>Esplora</span> <i class="fa-solid fa-arrow-right"></i>
+                        <div class="flex items-center justify-between text-amber-300 font-display font-bold text-sm group-hover:translate-x-1 transition-transform">
+                            <span>Apri Sezione</span> <i class="fa-solid fa-arrow-right"></i>
                         </div>
                     </div>
 
-                    <div onclick="switchSection('medie')" class="glass-panel p-8 rounded-3xl cursor-pointer group flex flex-col justify-between transition-all duration-300 hover:-translate-y-2 hover:border-neonCyan">
+                    <!-- Medie -->
+                    <div onclick="switchSection('medie')" class="glass-card p-8 rounded-3xl cursor-pointer group flex flex-col justify-between">
                         <div>
                             <div class="flex justify-between items-center mb-6">
-                                <span class="px-3 py-1 rounded-full bg-cyan-500/20 text-neonCyan text-xs font-bold border border-cyan-500/30">ZONE 02</span>
+                                <span class="px-3 py-1 rounded-full bg-blue-500/20 text-accentBlue text-xs font-bold border border-blue-500/30">LIV. 02</span>
                                 <span class="text-3xl">🎬⚔️</span>
                             </div>
-                            <h3 class="font-display font-bold text-2xl text-white mb-3 group-hover:text-neonCyan transition-colors">Scuola Media</h3>
-                            <p class="text-gray-300 text-sm mb-6 leading-relaxed">Cinema & Mitologia Epica. Grammatica e storia come in un film kolossal in 4K.</p>
+                            <h3 class="font-display font-bold text-2xl text-white mb-3 group-hover:text-accentBlue transition-colors">Scuola Media</h3>
+                            <p class="text-gray-300 text-sm mb-6 leading-relaxed">Cinema & Mitologia Epica. Grammatica e storia raccontate come in un kolossal in 4K.</p>
                         </div>
-                        <div class="flex items-center justify-between text-neonCyan font-display font-bold text-sm">
-                            <span>Esplora</span> <i class="fa-solid fa-arrow-
+                        <div class="flex items-center justify-between text-accentBlue font-display font-bold text-sm group-hover:translate-x-1 transition-transform">
+                            <span>Apri Sezione</span> <i class="fa-solid fa-arrow-right"></i>
+                        </div>
+                    </div>
+
+                    <!-- Superiori -->
+                    <div onclick="switchSection('superiori')" class="glass-card p-8 rounded-3xl cursor-pointer group flex flex-col justify-between">
+                        <div>
+                            <div class="flex justify-between items-center mb-6">
+                                <span class="px-3 py-1 rounded-full bg-purple-500/20 text-accentPurple text-xs font-bold border border-purple-500/30">LIV. 03</span>
+                                <span class="text-3xl">🚀🔬</span>
+                            </div>
+                            <h3 class="font-display font-bold text-2xl text-white mb-3 group-hover:text-accentPurple transition-colors">Scuola Superiore</h3>
+                            <p class="text-gray-300 text-sm mb-6 leading-relaxed">Laboratorio Tech & Blueprint. Analisi, fisica avanzata e latino logico.</p>
+                        </div>
+                        <div class="flex items-center justify-between text-accentPurple font-display font-bold text-sm group-hover:translate-x-1 transition-transform">
+                            <span>Apri Sezione</span> <i class="fa-solid fa-arrow-right"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SEZIONE FILOSOFIA & METODO -->
+            <div class="glass-card p-8 sm:p-12 rounded-3xl mb-16 border border-white/10">
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8 text-center md:text-left">
+                    <div>
+                        <div class="w-12 h-12 rounded-xl bg-blue-500/20 text-accentBlue flex items-center justify-center text-xl font-bold mx-auto md:mx-0 mb-4">
+                            <i class="fa-solid fa-brain"></i>
+                        </div>
+                        <h4 class="font-display font-bold text-white text-lg mb-2">Mappe Mentali</h4>
+                        <p class="text-xs text-gray-400 leading-relaxed">Schemi visivi immediati per fissare i concetti chiave senza ore di lettura passiva.</p>
+                    </div>
+                    <div>
+                        <div class="w-12 h-12 rounded-xl bg-emerald-500/20 text-accentNeon flex items-center justify-center text-xl font-bold mx-auto md:mx-0 mb-4">
+                            <i class="fa-solid fa-shield-halved"></i>
+                        </div>
+                        <h4 class="font-display font-bold text-white text-lg mb-2">Zero Ansia da Esame</h4>
+                        <p class="text-xs text-gray-400 leading-relaxed">Simulazioni mirate di verifiche e interrogazioni per arrivare preparati e sicuri.</p>
+                    </div>
+                    <div>
+                        <div class="w-12 h-12 rounded-xl bg-purple-500/20 text-accentPurple flex items-center justify-center text-xl font-bold mx-auto md:mx-0 mb-4">
+                            <i class="fa-solid fa-users-viewfinder"></i>
+                        </div>
+                        <h4 class="font-display font-bold text-white text-lg mb-2">Tutor Selezionati</h4>
+                        <p class="text-xs text-gray-400 leading-relaxed">Specialisti giovani, dinamici e con un linguaggio moderno allineato agli studenti.</p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+
+    <!-- VISTE INTERNE PER FASCE SCOLASTICHE -->
+    <section id="view-elementari" class="section-view py-12 px-6 animate-fade">
+        <div class="max-w-4xl mx-auto">
+            <button onclick="switchSection('hub')" class="mb-8 px-4 py-2 rounded-xl text-sm font-semibold glass-card text-gray-300 hover:text-white inline-flex items-center gap-2">
+                <i class="fa-solid fa-arrow-left"></i> Torna all'Hub Principale
+            </button>
+            <div class="glass-card p-8 sm:p-12 rounded-3xl">
+                <span class="text-amber-300 text-xs font-bold uppercase tracking-wider">Area Elementari</span>
+                <h1 class="font-display font-black text-3xl sm:text-4xl text-white mt-2 mb-4">La Tana degli Eroi</h1>
+                <p class="text-gray-300 text-sm mb-6 leading-relaxed">Imparare giocando con storie illustrate, personaggi ispirati al mondo manga e tecniche ludiche per sviluppare sicurezza e curiosità in matematica e italiano.</p>
+                <button onclick="openBookingModal()" class="px-7 py-3.5 rounded-xl font-display font-bold bg-amber-400 text-darkBg hover:bg-amber-300 transition-colors">
+                    Richiedi Percorso Elementari <i class="fa-solid fa-bolt ml-1"></i>
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <section id="view-medie" class="section-view py-12 px-6 animate-fade">
+        <div class="max-w-4xl mx-auto">
+            <button onclick="switchSection('hub')" class="mb-8 px-4 py-2 rounded-xl text-sm font-semibold glass-card text-gray-300 hover:text-white inline-flex items-center gap-2">
+                <i class="fa-solid fa-arrow-left"></i> Torna all'Hub Principale
+            </button>
+            <div class="glass-card p-8 sm:p-12 rounded-3xl">
+                <span class="text-accentBlue text-xs font-bold uppercase tracking-wider">Area Medie</span>
+                <h1 class="font-display font-black text-3xl sm:text-4xl text-white mt-2 mb-4">L'Epica della Conoscenza</h1>
+                <p class="text-gray-300 text-sm mb-6 leading-relaxed">Mitologia greca, epica e collegamenti storici e cinematografici per affrontare le medie da veri protagonisti di un film kolossal.</p>
+                <button onclick="openBookingModal()" class="px-7 py-3.5 rounded-xl font-display font-bold bg-accentBlue text-white hover:bg-blue-600 transition-colors">
+                    Richiedi Percorso Medie <i class="fa-solid fa-bolt ml-1"></i>
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <section id="view-superiori" class="section-view py-12 px-6 animate-fade">
+        <div class="max-w-4xl mx-auto">
+            <button onclick="switchSection('hub')" class="mb-8 px-4 py-2 rounded-xl text-sm font-semibold glass-card text-gray-300 hover:text-white inline-flex items-center gap-2">
+                <i class="fa-solid fa-arrow-left"></i> Torna all'Hub Principale
+            </button>
+            <div class="glass-card p-8 sm:p-12 rounded-3xl">
+                <span class="text-accentPurple text-xs font-bold uppercase tracking-wider">Area Superiori</span>
+                <h1 class="font-display font-black text-3xl sm:text-4xl text-white mt-2 mb-4">Il Laboratorio Diretto</h1>
+                <p class="text-gray-300 text-sm mb-6 leading-relaxed">Schemi mentali ingegneristici, formulari avanzati, latino logico e progetti scientifici visivi per dominare le superiori e prepararsi all'università.</p>
+                <button onclick="openBookingModal()" class="px-7 py-3.5 rounded-xl font-display font-bold bg-accentPurple text-white hover:bg-purple-600 transition-colors">
+                    Richiedi Percorso Superiori <i class="fa-solid fa-bolt ml-1"></i>
+                </button>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- MODALE DI CONTATTO / PRENOTAZIONE RAPIDA -->
+    <div id="booking-modal" class="fixed inset-0 bg-black/80 backdrop-blur-md z-50 hidden flex items-center justify-center p-4">
+        <div class="glass-card w-full max-w-lg p-6 sm:p-8 rounded-3xl relative border border-white/10 shadow-2xl animate-fade">
+            <button onclick="closeBookingModal()" class="absolute top-4 right-4 text-xl text-gray-400 hover:text-white w-9 h-9 rounded-full bg-white/5 flex items-center justify-center transition-colors">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+
+            <span class="text-accentNeon text-xs font-bold uppercase tracking-wider"><i class="fa-solid fa-bolt mr-1"></i> Accesso Rapido</span>
+            <h2 class="font-display font-black text-2xl text-white mt-1 mb-2">Richiedi Contatto Diretto</h2>
+            <p class="text-gray-300 text-xs mb-6">Compila i dati. Ti ricontatteremo su WhatsApp per definire il piano di studio ottimale.</p>
+
+            <form onsubmit="handleBookingSubmit(event)" class="space-y-4 text-sm">
+                <div>
+                    <label class="block font-semibold text-gray-300 mb-1">Nome Studente / Genitore:</label>
+                    <input type="text" id="user-name" required placeholder="Es. Alex Rossi" class="w-full bg-black/40 border border-white/10 rounded-xl px-4 py-3 text-white placeholder-gray-500 focus:outline-none focus:border-accentBlue">
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div>
+                        <label class="block font-semibold text-gray-300 mb-1">Ciclo Scolastico:</label>
+                        <select id="user-level" class="w-full bg-darkCard border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-accentBlue">
+                            <option>Scuola Elementare</option>
+                            <option>Scuola Media</option>
+                            <option>Scuola Superiore</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block font-semibold text-gray-300 mb-1">Materia Principale:</label>
+                        <input type="text" id="user-subject" required placeholder="Es. Matematica / Latino" class="w-full bg-black/40 border border-white/10 rounded-xl px-4 py-3 text-white placeholder-gray-500 focus:outline-none focus:border-accentBlue">
+                    </div>
+                </div>
+
+                <div>
+                    <label class="block font-semibold text-gray-300 mb-1">Numero WhatsApp:</label>
+                    <input type="tel" id="user-phone" required placeholder="Es. 333 1234567" class="w-full bg-black/40 border border-white/10 rounded-xl px-4 py-3 text-white placeholder-gray-500 focus:outline-none focus:border-accentBlue">
+                </div>
+
+                <button type="submit" class="w-full py-3.5 rounded-xl font-display font-bold bg-gradient-to-r from-accentBlue to-accentPurple text-white shadow-lg shadow-blue-600/30 mt-2 hover:scale-[1.01] transition-transform">
+                    Invia Richiesta via WhatsApp <i class="fa-brands fa-whatsapp ml-1"></i>
+                </button>
+            </form>
+
+            <div id="success-message" class="hidden mt-4 p-4 rounded-xl bg-emerald-500/20 border border-emerald-500/40 text-center">
+                <p class="font-display font-bold text-emerald-300 text-base">RICHIESTA INVIATA!</p>
+                <p class="text-xs text-gray-300 mt-1">Apertura chat WhatsApp in corso...</p>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- FOOTER -->
+    <footer class="glass-card border-t border-white/10 py-8 px-6 mt-12 text-center">
+        <div class="max-w-6xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
+            <div class="flex items-center gap-2">
+                <div class="w-7 h-7 rounded-lg bg-accentBlue flex items-center justify-center font-display font-bold text-xs text-white">⚡</div>
+                <span class="font-display font-bold text-white text-sm">SKILLUP ACADEMY © 2026</span>
+            </div>
+            <p class="text-xs text-gray-400">Piattaforma avanzata per l'accelerazione scolastica e il recupero voti.</p>
+            <div class="flex gap-3 text-lg">
+                <a href="#" class="w-9 h-9 rounded-xl glass-card flex items-center justify-center text-gray-300 hover:text-white hover:border-accentBlue transition-colors"><i class="fa-brands fa-whatsapp"></i></a>
+                <a href="#" class="w-9 h-9 rounded-xl glass-card flex items-center justify-center text-gray-300 hover:text-white hover:border-accentBlue transition-colors"><i class="fa-brands fa-instagram"></i></a>
+            </div>
+        </div>
+    </footer>
+
+
+    <!-- JAVASCRIPT -->
+    <script>
+        function switchSection(sectionId) {
+            const views = document.querySelectorAll('.section-view');
+            views.forEach(v => v.classList.remove('active'));
+
+            const targetView = document.getElementById('view-' + sectionId);
+            if (targetView) {
+                targetView.classList.add('active');
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            }
+        }
+
+        function openBookingModal() {
+            const modal = document.getElementById('booking-modal');
+            modal.classList.remove('hidden');
+            document.getElementById('success-message').classList.add('hidden');
+        }
+
+        function closeBookingModal() {
+            const modal = document.getElementById('booking-modal');
+            modal.classList.add('hidden');
+        }
+
+        function handleBookingSubmit(event) {
+            event.preventDefault();
+            const name = document.getElementById('user-name').value;
+            const level = document.getElementById('user-level').value;
+            const subject = document.getElementById('user-subject').value;
+            const phone = document.getElementById('user-phone').value;
+            
+            const successDiv = document.getElementById('success-message');
+            successDiv.classList.remove('hidden');
+            
+            const message = encodeURIComponent(`Ciao! Sono ${name}. Vorrei informazioni per ripetizioni (${level}) di ${subject}. Contatto: ${phone}`);
+            
+            setTimeout(() => {
+                closeBookingModal();
+                window.open(`https://wa.me/393331234567?text=${message}`, '_blank');
+            }, 1500);
+        }
+
+        window.onclick = function(event) {
+            const modal = document.getElementById('booking-modal');
+            if (event.target === modal) {
+                closeBookingModal();
+            }
+        }
+    </script>
+</body>
+</html>
