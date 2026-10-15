@@ -1,300 +1,597 @@
-<<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="it" class="scroll-smooth">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>SKILLUP - Piattaforma Avanzata di Accelerazione Scolastica</title>
-    <!-- Tailwind CSS CDN -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Supabase JS Client CDN -->
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-    <!-- Google Fonts: Inter & Outfit -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@500;700;800;900&display=swap" rel="stylesheet">
-    <!-- FontAwesome per icone -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    fontFamily: {
-                        sans: ['Inter', 'sans-serif'],
-                        display: ['Outfit', 'sans-serif'],
-                    },
-                    colors: {
-                        darkBg: '#05070e',
-                        darkCard: '#0d1322',
-                        accentNeon: '#10b981',
-                        accentBlue: '#3b82f6',
-                        accentPurple: '#8b5cf6',
-                        accentPink: '#f43f5e',
-                    }
-                }
-            }
-        }
-    </script>
-    
-    <style>
-        * {
-            box-sizing: border-box;
-            -webkit-tap-highlight-color: transparent;
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#05070e">
+<title>SKILLUP - Ripetizioni, appunti e tutor a Teramo</title>
+<meta name="description" content="Community di studio nel territorio di Teramo: ripetizioni, appunti e tutor verificati.">
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<script>
+tailwind.config = { theme: { extend: {
+  fontFamily: { sans: ['Inter','sans-serif'], display: ['Outfit','sans-serif'] },
+  colors: { darkBg:'#05070e', darkCard:'#0d1322', accentNeon:'#10b981', accentBlue:'#3b82f6', accentPurple:'#8b5cf6', accentPink:'#f43f5e' }
+}}}
+</script>
+<style>
+  html { -webkit-tap-highlight-color: transparent; }
+  body { background:#05070e; color:#f8fafc; font-family:'Inter',sans-serif; margin:0; overflow-x:hidden; }
+  h1,h2,h3 { font-family:'Outfit',sans-serif; letter-spacing:-0.01em; }
 
-        body {
-            background-color: #05070e;
-            color: #f8fafc;
-            font-family: 'Inter', sans-serif;
-            overflow-x: hidden;
-            margin: 0;
-            padding: 0;
-        }
+  /* Sfondo aurora */
+  .aurora { position:fixed; inset:0; z-index:-1; pointer-events:none;
+    background:
+      radial-gradient(60rem 36rem at 12% -10%, rgba(59,130,246,.20), transparent 60%),
+      radial-gradient(48rem 30rem at 95% 10%, rgba(139,92,246,.16), transparent 60%),
+      radial-gradient(44rem 30rem at 50% 110%, rgba(16,185,129,.12), transparent 60%),
+      #05070e; }
 
-        .glass-card {
-            background: rgba(13, 19, 34, 0.85);
-            backdrop-filter: blur(24px);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.7);
-        }
+  /* Glassmorphism con bordo sfumato luminoso */
+  .glass { position:relative; background:linear-gradient(180deg, rgba(20,28,48,.72), rgba(10,15,28,.82));
+    backdrop-filter:blur(18px); -webkit-backdrop-filter:blur(18px);
+    box-shadow:0 24px 48px -20px rgba(0,0,0,.8), inset 0 1px 0 rgba(255,255,255,.06); }
+  .glass::before { content:""; position:absolute; inset:0; border-radius:inherit; padding:1px; pointer-events:none;
+    background:linear-gradient(145deg, rgba(255,255,255,.22), rgba(255,255,255,.04) 40%, rgba(59,130,246,.30));
+    -webkit-mask:linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0); -webkit-mask-composite:xor;
+    mask:linear-gradient(#000 0 0) content-box exclude, linear-gradient(#000 0 0); mask-composite:exclude; }
+  .lift { transition:transform .25s ease, box-shadow .25s ease; }
+  @media (hover:hover) { .lift:hover { transform:translateY(-3px); box-shadow:0 30px 50px -20px rgba(59,130,246,.35), inset 0 1px 0 rgba(255,255,255,.08); } }
 
-        @keyframes floatBlob1 {
-            0%, 100% { transform: translate(0px, 0px) scale(1); }
-            33% { transform: translate(50px, -80px) scale(1.2); }
-            66% { transform: translate(-30px, 40px) scale(0.9); }
-        }
+  /* Viste */
+  .section-view { display:none !important; padding-top:92px; padding-bottom:110px; }
+  .section-view.active { display:flex !important; flex-direction:column; animation:viewIn .35s ease both; }
+  @keyframes viewIn { from { opacity:0; transform:translateY(8px);} to { opacity:1; transform:none;} }
+  @media (min-width:768px) { .section-view { padding-bottom:60px; } }
 
-        @keyframes floatBlob2 {
-            0%, 100% { transform: translate(0px, 0px) scale(1); }
-            33% { transform: translate(-60px, 60px) scale(1.1); }
-            66% { transform: translate(40px, -50px) scale(0.95); }
-        }
+  /* Carosello */
+  .carousel-container { display:flex; gap:1rem; overflow-x:auto; scroll-snap-type:x mandatory; padding:.25rem .25rem 1rem; scrollbar-width:none; -webkit-overflow-scrolling:touch; }
+  .carousel-container::-webkit-scrollbar { display:none; }
+  .carousel-card { scroll-snap-align:start; flex:0 0 82%; max-width:320px; }
+  @media (min-width:768px) { .carousel-card { flex:0 0 300px; } }
 
-        .animated-blob-1 {
-            position: absolute;
-            width: 450px;
-            height: 450px;
-            border-radius: 50%;
-            background: rgba(59, 130, 246, 0.12);
-            filter: blur(160px);
-            pointer-events: none;
-            z-index: -1;
-            animation: floatBlob1 12s ease-in-out infinite;
-        }
+  /* Skeleton */
+  .skeleton { background:linear-gradient(90deg, rgba(255,255,255,.04) 25%, rgba(255,255,255,.10) 50%, rgba(255,255,255,.04) 75%);
+    background-size:200% 100%; animation:shimmer 1.4s infinite linear; border-radius:.6rem; }
+  @keyframes shimmer { to { background-position:-200% 0; } }
 
-        .animated-blob-2 {
-            position: absolute;
-            width: 450px;
-            height: 450px;
-            border-radius: 50%;
-            background: rgba(244, 63, 94, 0.12);
-            filter: blur(160px);
-            pointer-events: none;
-            z-index: -1;
-            animation: floatBlob2 15s ease-in-out infinite;
-        }
+  /* Form */
+  .field { width:100%; min-height:3.25rem; background:rgba(0,0,0,.35); border:1px solid rgba(255,255,255,.12); border-radius:1rem;
+    padding:.8rem 1rem; color:#fff; font-size:16px; transition:border-color .2s, box-shadow .2s; }
+  .field::placeholder { color:#6b7a90; }
+  .field:focus { outline:none; border-color:#3b82f6; box-shadow:0 0 0 4px rgba(59,130,246,.18); }
+  select.field { appearance:none; background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' fill='none' stroke='%239ca3af' stroke-width='2'%3E%3Cpath d='M1 1l5 5 5-5'/%3E%3C/svg%3E");
+    background-repeat:no-repeat; background-position:right 1rem center; padding-right:2.5rem; }
+  select.field option { background:#0d1322; }
+  .label { display:block; font-size:.78rem; font-weight:600; color:#aab4c5; margin:0 0 .4rem .2rem; }
+  .btn { min-height:3.25rem; border-radius:1rem; font-family:'Outfit',sans-serif; font-weight:700; font-size:1rem; display:inline-flex; align-items:center; justify-content:center; gap:.5rem; transition:transform .15s, filter .2s, opacity .2s; }
+  .btn:active { transform:scale(.98); }
+  .btn:disabled { opacity:.65; pointer-events:none; }
+  .btn:focus-visible, .field:focus-visible, a:focus-visible, button:focus-visible { outline:2px solid #3b82f6; outline-offset:2px; }
 
-        .section-view {
-            display: none;
-            min-height: 100vh;
-            width: 100%;
-            padding-top: 90px;
-            padding-bottom: 60px;
-        }
-        .section-view.active {
-            display: flex;
-            flex-direction: column;
-            justify-content: flex-start;
-        }
+  /* Modali: bottom sheet su mobile */
+  .modal { transition:opacity .2s ease; }
+  .modal.hidden { display:none; }
+  .sheet { max-height:92dvh; overflow-y:auto; animation:sheetIn .28s cubic-bezier(.2,.8,.2,1) both; padding-bottom:calc(1.5rem + env(safe-area-inset-bottom)); }
+  @keyframes sheetIn { from { transform:translateY(24px); opacity:0; } to { transform:none; opacity:1; } }
 
-        .carousel-container {
-            display: flex;
-            gap: 1.25rem;
-            overflow-x: auto;
-            scroll-snap-type: x mandatory;
-            scroll-behavior: smooth;
-            -webkit-overflow-scrolling: touch;
-            padding-bottom: 1rem;
-            scrollbar-width: none;
-        }
-        .carousel-container::-webkit-scrollbar {
-            display: none;
-        }
-        .carousel-card {
-            scroll-snap-align: center;
-            flex: 0 0 88%;
-            max-width: 320px;
-            transition: transform 0.3s ease;
-        }
-        .carousel-card:hover {
-            transform: translateY(-4px);
-            border-color: rgba(244, 63, 94, 0.4);
-        }
-        @media (min-width: 768px) {
-            .carousel-card {
-                flex: 0 0 32%;
-            }
-        }
+  /* Navigazione */
+  .nav-link { color:#aab4c5; } .nav-link.on { color:#fff; background:rgba(255,255,255,.08); }
+  .tab { color:#8794a8; } .tab.on { color:#fff; }
+  .tab.on .tab-ico { background:rgba(255,255,255,.1); }
+  .bottom-nav { padding-bottom:env(safe-area-inset-bottom); }
 
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        .animate-fade {
-            animation: fadeIn 0.3s ease-out forwards;
-        }
-    </style>
+  /* Toast */
+  .toast { animation:toastIn .3s cubic-bezier(.2,.8,.2,1) both; }
+  .toast.out { animation:toastOut .25s ease both; }
+  @keyframes toastIn { from { opacity:0; transform:translateY(-12px) scale(.96);} to { opacity:1; transform:none;} }
+  @keyframes toastOut { to { opacity:0; transform:translateY(-8px) scale(.96);} }
+
+  .bubble-in { animation:viewIn .25s ease both; }
+  .dot { animation:blink 1.2s infinite both; } .dot:nth-child(2){animation-delay:.2s} .dot:nth-child(3){animation-delay:.4s}
+  @keyframes blink { 0%,80%,100%{opacity:.25} 40%{opacity:1} }
+
+  /* Spotlight che segue il dito/cursore */
+  .lift::after { content:""; position:absolute; inset:0; border-radius:inherit; pointer-events:none; opacity:0; transition:opacity .25s;
+    background:radial-gradient(240px circle at var(--mx,50%) var(--my,50%), rgba(139,92,246,.18), transparent 70%); }
+  .lift:hover::after { opacity:1; }
+  .chip { min-height:2.5rem; padding:0 1rem; border-radius:999px; font-size:.85rem; font-weight:600; color:#aab4c5; border:1px solid rgba(255,255,255,.12); background:rgba(255,255,255,.04); transition:all .2s; white-space:nowrap; }
+  .chip.on { background:#10b981; border-color:#10b981; color:#05070e; }
+  .stat-n { font-family:'Outfit',sans-serif; font-weight:800; font-variant-numeric:tabular-nums; }
+  @media (prefers-reduced-motion:reduce) { *,*::before,*::after { animation-duration:.01ms !important; transition-duration:.01ms !important; } }
+</style>
 </head>
-<body class="selection:bg-accentBlue selection:text-white min-h-screen flex flex-col justify-between relative">
+<body class="min-h-screen flex flex-col">
+<div class="aurora"></div>
 
-    <div class="animated-blob-1 top-10 left-10"></div>
-    <div class="animated-blob-2 top-1/2 right-10" style="animation-delay: -5s;"></div>
+<!-- TOAST -->
+<div id="toast-root" class="fixed left-0 right-0 z-[100] flex flex-col items-center gap-2 px-4 pointer-events-none" style="top:calc(env(safe-area-inset-top) + 76px)" aria-live="polite"></div>
 
-    <!-- NAVBAR -->
-    <header class="glass-card fixed top-0 left-0 right-0 z-50 border-b border-white/10 px-4 sm:px-6 py-3.5">
-        <div class="max-w-7xl mx-auto flex justify-between items-center">
-            <a href="javascript:void(0)" onclick="switchSection('hub')" class="flex items-center gap-2.5 group">
-                <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-accentBlue to-accentPurple flex items-center justify-center font-display font-black text-lg text-white shadow-lg shadow-blue-500/20 group-hover:scale-105 transition-transform">
-                    ⚡
-                </div>
-                <div>
-                    <span class="font-display font-extrabold text-base tracking-wider text-white">SKILLUP</span>
-                    <span class="block text-[9px] font-bold text-accentNeon tracking-widest uppercase">ACADEMY</span>
-                </div>
-            </a>
-            
-            <nav class="flex items-center gap-1.5 sm:gap-3">
-                <button onclick="switchSection('hub')" class="px-3 py-2 rounded-xl text-xs font-semibold text-gray-300 hover:text-white hover:bg-white/5 transition-colors">
-                    <i class="fa-solid fa-house text-accentBlue"></i> <span class="hidden sm:inline">Home</span>
-                </button>
-                <button onclick="switchSection('bacheca')" class="px-3 py-2 rounded-xl text-xs font-semibold text-gray-300 hover:text-white hover:bg-white/5 transition-colors">
-                    <i class="fa-solid fa-clipboard-list text-accentNeon"></i> <span class="hidden sm:inline">Bacheca</span>
-                </button>
-                <button onclick="switchSection('ai-chat')" class="px-3 py-2 rounded-xl text-xs font-semibold text-gray-300 hover:text-white hover:bg-white/5 transition-colors">
-                    <i class="fa-solid fa-robot text-accentPurple"></i> <span class="hidden sm:inline">AI Bot</span>
-                </button>
-                <button onclick="openBookingModal()" class="px-4 py-2 rounded-xl text-xs font-display font-bold bg-gradient-to-r from-accentBlue to-accentPurple text-white shadow-md shadow-blue-600/30 hover:scale-105 transition-transform">
-                    Unisciti
-                </button>
-            </nav>
+<!-- NAVBAR -->
+<header class="glass fixed top-0 left-0 right-0 z-50 px-4 sm:px-6 border-b border-white/5" style="padding-top:calc(env(safe-area-inset-top) + .75rem); padding-bottom:.75rem; border-radius:0;">
+  <div class="max-w-7xl mx-auto flex justify-between items-center gap-3">
+    <a href="javascript:void(0)" onclick="switchSection('hub')" class="flex items-center gap-2.5 min-w-0" aria-label="SKILLUP - Home">
+      <div class="w-10 h-10 shrink-0 rounded-xl bg-gradient-to-tr from-accentBlue to-accentPurple flex items-center justify-center text-lg shadow-lg shadow-accentBlue/30">⚡</div>
+      <div class="leading-tight">
+        <span class="font-display font-extrabold text-lg tracking-wide text-white">SKILLUP</span>
+        <span class="block text-[10px] font-semibold text-accentNeon tracking-wide">Teramo</span>
+      </div>
+    </a>
+    <nav class="flex items-center gap-1.5 sm:gap-2">
+      <div class="hidden md:flex items-center gap-1">
+        <button data-nav="hub" onclick="switchSection('hub')" class="nav-link px-4 py-2.5 rounded-xl text-sm font-semibold hover:text-white hover:bg-white/5 transition-colors"><i class="fa-solid fa-house text-accentBlue mr-1.5"></i>Home</button>
+        <button data-nav="bacheca" onclick="switchSection('bacheca')" class="nav-link px-4 py-2.5 rounded-xl text-sm font-semibold hover:text-white hover:bg-white/5 transition-colors"><i class="fa-solid fa-clipboard-list text-accentNeon mr-1.5"></i>Bacheca</button>
+        <button data-nav="ai-chat" onclick="switchSection('ai-chat')" class="nav-link px-4 py-2.5 rounded-xl text-sm font-semibold hover:text-white hover:bg-white/5 transition-colors"><i class="fa-solid fa-robot text-accentPurple mr-1.5"></i>AI Bot</button>
+      </div>
+      <button onclick="openBookingModal()" class="px-5 h-11 rounded-xl text-sm font-display font-bold bg-gradient-to-r from-accentBlue to-accentPurple text-white shadow-lg shadow-accentPurple/25 active:scale-95 transition-transform">Unisciti</button>
+    </nav>
+  </div>
+</header>
+
+<!-- NAV MOBILE -->
+<nav class="bottom-nav md:hidden glass fixed bottom-0 left-0 right-0 z-50 border-t border-white/5" style="border-radius:0;">
+  <div class="grid grid-cols-3 px-2 pt-2 pb-1.5">
+    <button data-nav="hub" onclick="switchSection('hub')" class="tab flex flex-col items-center gap-1 text-[11px] font-semibold"><span class="tab-ico w-12 h-8 rounded-full flex items-center justify-center transition-colors"><i class="fa-solid fa-house text-accentBlue text-base"></i></span>Home</button>
+    <button data-nav="bacheca" onclick="switchSection('bacheca')" class="tab flex flex-col items-center gap-1 text-[11px] font-semibold"><span class="tab-ico w-12 h-8 rounded-full flex items-center justify-center transition-colors"><i class="fa-solid fa-clipboard-list text-accentNeon text-base"></i></span>Bacheca</button>
+    <button data-nav="ai-chat" onclick="switchSection('ai-chat')" class="tab flex flex-col items-center gap-1 text-[11px] font-semibold"><span class="tab-ico w-12 h-8 rounded-full flex items-center justify-center transition-colors"><i class="fa-solid fa-robot text-accentPurple text-base"></i></span>AI Bot</button>
+  </div>
+</nav>
+
+<!-- 1. HOME -->
+<section id="view-hub" class="section-view active px-4 sm:px-6">
+  <div class="max-w-6xl mx-auto w-full">
+    <div class="glass p-6 sm:p-12 rounded-[1.75rem] mb-6 overflow-hidden">
+      <div class="absolute -top-24 -right-24 w-72 h-72 rounded-full bg-accentBlue/20 blur-3xl pointer-events-none"></div>
+      <div class="relative">
+        <span class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-accentNeon/10 text-accentNeon text-xs font-semibold mb-5 border border-accentNeon/20">
+          <span class="w-1.5 h-1.5 rounded-full bg-accentNeon animate-pulse"></span>Community attiva a Teramo
+        </span>
+        <h1 class="font-extrabold text-[2rem] leading-[1.1] sm:text-6xl text-white mb-4">
+          Studia meglio,<br>
+          <span class="bg-gradient-to-r from-accentBlue via-accentPurple to-accentPink bg-clip-text text-transparent">insieme a chi è vicino a te.</span>
+        </h1>
+        <p class="text-gray-300 text-base sm:text-lg max-w-xl mb-7 leading-relaxed">Ripetizioni, appunti condivisi e contatto diretto con tutor del territorio teramano.</p>
+        <div class="flex flex-col sm:flex-row gap-3">
+          <button onclick="switchSection('bacheca')" class="btn px-7 bg-accentNeon text-darkBg shadow-lg shadow-accentNeon/25"><i class="fa-solid fa-clipboard-list"></i>Vai alla bacheca</button>
+          <button onclick="openBookingModal()" class="btn px-7 bg-white/5 border border-white/15 text-white hover:bg-white/10">Unisciti a SkillUp</button>
         </div>
-    </header>
-
-
-    <!-- ==================== 1. HOME HUB ==================== -->
-    <section id="view-hub" class="section-view active px-4 sm:px-6">
-        <div class="max-w-6xl mx-auto w-full py-6">
-            
-            <div class="glass-card p-6 sm:p-12 rounded-3xl mb-8 relative overflow-hidden border border-white/10">
-                <div class="absolute -right-24 -top-24 w-96 h-96 bg-gradient-to-br from-blue-500/10 to-purple-500/10 rounded-full blur-3xl pointer-events-none"></div>
-
-                <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center relative z-10">
-                    <div class="lg:col-span-7">
-                        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 text-[11px] font-bold uppercase tracking-wider mb-4">
-                            <span class="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span> Connesso a Supabase Cloud
-                        </div>
-                        <h1 class="font-display font-black text-3xl sm:text-5xl tracking-tight text-white mb-4 leading-tight">
-                            LA COMMUNITY N.1 <br>
-                            <span class="bg-gradient-to-r from-accentBlue via-accentNeon to-accentPink bg-clip-text text-transparent">DI STUDIO & RIPETIZIONI.</span>
-                        </h1>
-                        <p class="text-gray-300 text-sm sm:text-base mb-6 leading-relaxed">
-                            Piattaforma dinamica al 100%. Pubblica annunci in bacheca o connettiti direttamente con i tutor dal database.
-                        </p>
-                        <div class="flex flex-wrap gap-3">
-                            <button onclick="switchSection('bacheca')" class="px-5 py-3 rounded-xl font-display font-bold bg-accentNeon text-darkBg hover:bg-emerald-400 transition-colors shadow-lg text-xs flex items-center gap-2">
-                                <i class="fa-solid fa-clipboard-list"></i> Vai alla Bacheca Live
-                            </button>
-                            <button onclick="switchSection('ai-chat')" class="px-5 py-3 rounded-xl font-display font-bold bg-white/5 text-white hover:bg-white/10 transition-colors border border-white/10 text-xs flex items-center gap-2">
-                                <i class="fa-solid fa-robot"></i> Chiedi all'AI
-                            </button>
-                        </div>
-                    </div>
-
-                    <div class="lg:col-span-5 grid grid-cols-2 gap-3">
-                        <div class="glass-card p-4 rounded-2xl border border-white/10 text-center">
-                            <span class="block font-display font-black text-2xl text-accentBlue mb-1">Live</span>
-                            <span class="text-[11px] text-gray-400 font-medium">Database Supabase</span>
-                        </div>
-                        <div class="glass-card p-4 rounded-2xl border border-white/10 text-center">
-                            <span class="block font-display font-black text-2xl text-accentNeon mb-1">100%</span>
-                            <span class="text-[11px] text-gray-400 font-medium">Funzionante</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- CAROSELLO TUTOR DINAMICO -->
-            <div class="glass-card p-6 sm:p-10 rounded-3xl mb-8 border border-accentPink/30 relative overflow-hidden bg-gradient-to-br from-pink-950/20 via-darkCard to-purple-950/20">
-                <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-6 gap-3 relative z-10">
-                    <div>
-                        <span class="px-3 py-1 rounded-full bg-pink-500/20 text-pink-400 text-[10px] font-bold uppercase tracking-wider border border-pink-500/30">
-                            <i class="fa-solid fa-fire mr-1"></i> Radar Match in Tempo Reale
-                        </span>
-                        <h2 class="font-display font-black text-xl sm:text-2xl text-white mt-1">TUTOR DISPONIBILI DAL DATABASE</h2>
-                    </div>
-                </div>
-
-                <div id="tutor-carousel" class="carousel-container relative z-10">
-                    <div class="text-xs text-gray-400 p-4">Caricamento tutor in corso...</div>
-                </div>
-            </div>
-
+        <div class="grid grid-cols-3 gap-2.5 sm:gap-3 mt-8 max-w-lg">
+          <div class="rounded-2xl bg-white/[.04] border border-white/10 p-3.5"><div id="stat-tutor" class="stat-n text-2xl sm:text-3xl text-accentBlue">–</div><div class="text-xs text-gray-400 mt-0.5">Tutor</div></div>
+          <div class="rounded-2xl bg-white/[.04] border border-white/10 p-3.5"><div id="stat-annunci" class="stat-n text-2xl sm:text-3xl text-accentNeon">–</div><div class="text-xs text-gray-400 mt-0.5">Annunci live</div></div>
+          <div class="rounded-2xl bg-white/[.04] border border-white/10 p-3.5"><div class="stat-n text-2xl sm:text-3xl text-accentPink"><i class="fa-brands fa-whatsapp"></i></div><div class="text-xs text-gray-400 mt-0.5">Contatto diretto</div></div>
         </div>
-    </section>
+      </div>
+    </div>
 
-
-    <!-- ==================== 2. BACHECA LIVE ==================== -->
-    <section id="view-bacheca" class="section-view px-4 sm:px-6">
-        <div class="max-w-5xl mx-auto w-full py-6">
-            <div class="flex flex-wrap justify-between items-center mb-6 gap-3">
-                <div>
-                    <span class="text-accentNeon text-[11px] font-bold uppercase tracking-widest"><i class="fa-solid fa-clipboard-list mr-1"></i> Bacheca Cloud</span>
-                    <h1 class="font-display font-black text-2xl sm:text-3xl text-white mt-0.5">ANNUNCI IN TEMPO REALE</h1>
-                </div>
-                <button onclick="openAnnuncioModal()" class="px-4 py-2.5 rounded-xl font-display font-bold bg-accentNeon text-darkBg hover:bg-emerald-400 shadow-lg text-xs flex items-center gap-1.5">
-                    <i class="fa-solid fa-plus"></i> Pubblica Annuncio
-                </button>
-            </div>
-
-            <div class="glass-card p-3 rounded-xl mb-5 flex gap-2">
-                <button onclick="filterAnnunci('all')" class="px-3 py-1.5 rounded-lg bg-accentNeon text-darkBg font-bold text-xs">Tutti</button>
-                <button onclick="filterAnnunci('ripetizioni')" class="px-3 py-1.5 rounded-lg bg-white/5 text-gray-300 font-bold text-xs border border-white/10">Ripetizioni</button>
-                <button onclick="filterAnnunci('appunti')" class="px-3 py-1.5 rounded-lg bg-white/5 text-gray-300 font-bold text-xs border border-white/10">Appunti</button>
-            </div>
-
-            <div id="annunci-grid" class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8">
-                <div class="text-xs text-gray-400 p-4">Caricamento annunci dalla bacheca cloud...</div>
-            </div>
+    <div class="glass p-5 sm:p-7 rounded-[1.75rem] mb-6">
+      <div class="flex items-end justify-between mb-4">
+        <div>
+          <h2 class="font-bold text-xl sm:text-2xl text-white">Tutor disponibili</h2>
+          <p class="text-xs text-gray-400 mt-0.5">Scorri per vedere tutti i profili</p>
         </div>
-    </section>
-
-
-    <!-- ==================== 3. AI CHAT ==================== -->
-    <section id="view-ai-chat" class="section-view px-4 sm:px-6">
-        <div class="max-w-2xl mx-auto w-full py-6">
-            <div class="text-center mb-5">
-                <span class="px-3 py-1 rounded-full bg-purple-500/20 text-accentPurple text-[10px] font-bold border border-purple-500/30 uppercase tracking-widest">
-                    <i class="fa-solid fa-robot mr-1"></i> Assistente 24/7
-                </span>
-                <h1 class="font-display font-black text-2xl text-white mt-1">SKILLBOT AI</h1>
-            </div>
-            <div class="glass-card rounded-2xl p-4 border border-white/10 flex flex-col h-[420px]">
-                <div id="chat-messages" class="flex-1 overflow-y-auto space-y-3 pr-1 mb-3 text-xs">
-                    <div class="flex items-start gap-2.5">
-                        <div class="w-7 h-7 rounded-full bg-accentPurple flex items-center justify-center text-white text-[10px] font-bold">AI</div>
-                        <div class="glass-card p-3 rounded-xl rounded-tl-none text-gray-200 max-w-[85%]">
-                            Ciao! La piattaforma è ora connessa al database cloud. Come posso aiutarti?
-                        </div>
-                    </div>
-                </div>
-                <form onsubmit="handleAiSubmit(event)" class="flex gap-2 pt-2 border-t border-white/10">
-                    <input type="text" id="ai-input" required placeholder="Scrivi una domanda..." class="flex-1 bg-black/40 border border-white/10 rounded-xl px-3.5 py-2.5 text-xs text-white placeholder-gray-500 focus:outline-none focus:border-accentPurple">
-                    <button type="submit" class="px-4 py-2.5 rounded-xl bg-accentPurple text-white font-bold text-xs shadow-md">
-                        <i class="fa-solid fa-paper-plane"></i>
-                    </button>
-                </form>
-            </div>
+        <i class="fa-solid fa-arrows-left-right text-gray-500 md:hidden"></i>
+        <div class="hidden md:flex gap-2">
+          <button onclick="scrollCarousel(-1)" class="w-10 h-10 rounded-full bg-white/5 border border-white/10 hover:bg-white/10" aria-label="Precedente"><i class="fa-solid fa-chevron-left"></i></button>
+          <button onclick="scrollCarousel(1)" class="w-10 h-10 rounded-full bg-white/5 border border-white/10 hover:bg-white/10" aria-label="Successivo"><i class="fa-solid fa-chevron-right"></i></button>
         </div>
-    </section>
+      </div>
+      <div id="tutor-carousel" class="carousel-container">
+        <div class="carousel-card glass p-4 rounded-2xl"><div class="skeleton h-4 w-2/3 mb-3"></div><div class="skeleton h-3 w-1/3 mb-4"></div><div class="skeleton h-16 w-full mb-4"></div><div class="skeleton h-12 w-full"></div></div>
+        <div class="carousel-card glass p-4 rounded-2xl"><div class="skeleton h-4 w-2/3 mb-3"></div><div class="skeleton h-3 w-1/3 mb-4"></div><div class="skeleton h-16 w-full mb-4"></div><div class="skeleton h-12 w-full"></div></div>
+      </div>
+    </div>
+  </div>
+</section>
 
+<!-- 2. BACHECA -->
+<section id="view-bacheca" class="section-view px-4 sm:px-6">
+  <div class="max-w-5xl mx-auto w-full">
+    <div class="flex flex-col sm:flex-row sm:justify-between sm:items-end gap-4 mb-6">
+      <div>
+        <h1 class="font-extrabold text-3xl text-white">Bacheca annunci</h1>
+        <p class="text-sm text-gray-400 mt-1">Ripetizioni e appunti pubblicati dagli studenti.</p>
+      </div>
+      <button onclick="openAnnuncioModal()" class="btn px-6 bg-accentNeon text-darkBg shadow-lg shadow-accentNeon/25"><i class="fa-solid fa-plus"></i>Pubblica annuncio</button>
+    </div>
+    <div class="mb-5 space-y-3">
+      <div class="relative">
+        <i class="fa-solid fa-magnifying-glass absolute left-4 top-1/2 -translate-y-1/2 text-gray-500"></i>
+        <input type="search" id="ann-search" oninput="onSearch(this.value)" placeholder="Cerca materia, zona o nome..." class="field !pl-11">
+      </div>
+      <div class="flex items-center justify-between gap-3">
+        <div class="flex gap-2 overflow-x-auto -mx-4 px-4 sm:mx-0 sm:px-0" style="scrollbar-width:none">
+          <button class="chip on" data-f="tutti" onclick="setFilter('tutti')">Tutti</button>
+          <button class="chip" data-f="ripetizioni" onclick="setFilter('ripetizioni')">Ripetizioni</button>
+          <button class="chip" data-f="appunti" onclick="setFilter('appunti')">Appunti</button>
+        </div>
+        <span id="ann-count" class="text-xs text-gray-500 shrink-0"></span>
+      </div>
+    </div>
+    <div id="annunci-grid" class="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <div class="glass p-5 rounded-2xl"><div class="skeleton h-5 w-24 mb-4"></div><div class="skeleton h-4 w-3/4 mb-3"></div><div class="skeleton h-3 w-full mb-2"></div><div class="skeleton h-3 w-2/3 mb-5"></div><div class="skeleton h-10 w-full"></div></div>
+      <div class="glass p-5 rounded-2xl"><div class="skeleton h-5 w-24 mb-4"></div><div class="skeleton h-4 w-3/4 mb-3"></div><div class="skeleton h-3 w-full mb-2"></div><div class="skeleton h-3 w-2/3 mb-5"></div><div class="skeleton h-10 w-full"></div></div>
+    </div>
+  </div>
+</section>
 
-    <!-- MODALE MATCH & CONTATTO -->
-    <div id="booking-modal" class="fixed inset-0 bg-black/80 backdrop-blur-md z-50 hidden flex items-center justify-center p-4
+<!-- 3. AI CHAT -->
+<section id="view-ai-chat" class="section-view px-4 sm:px-6">
+  <div class="max-w-xl mx-auto w-full">
+    <div class="text-center mb-5">
+      <div class="w-14 h-14 mx-auto rounded-2xl bg-gradient-to-tr from-accentPurple to-accentPink flex items-center justify-center text-2xl shadow-lg shadow-accentPurple/30 mb-3"><i class="fa-solid fa-robot text-white"></i></div>
+      <h1 class="font-extrabold text-3xl text-white">SkillBot AI</h1>
+      <p class="text-sm text-gray-400 mt-1">Il tuo assistente per studio e tutor.</p>
+    </div>
+    <div class="glass rounded-3xl p-4 flex flex-col h-[min(480px,60dvh)]">
+      <div id="chat-messages" class="flex-1 overflow-y-auto space-y-3 mb-3 pr-1 text-sm">
+        <div class="bg-white/5 border border-white/10 p-3.5 rounded-2xl rounded-tl-md text-gray-200 max-w-[88%]">Ciao! Sono SkillBot. Dimmi cosa ti serve, oppure scegli qui sotto.</div>
+        <div class="flex flex-wrap gap-2">
+          <button class="chip" onclick="aiAsk('Cerco un tutor')">Cerco un tutor</button>
+          <button class="chip" onclick="aiAsk('Voglio degli appunti')">Voglio appunti</button>
+          <button class="chip" onclick="aiAsk('Voglio pubblicare un annuncio')">Pubblica annuncio</button>
+        </div>
+      </div>
+      <form onsubmit="handleAiSubmit(event)" class="flex gap-2">
+        <input type="text" id="ai-input" required autocomplete="off" placeholder="Scrivi una domanda..." class="field !min-h-[3rem] flex-1">
+        <button type="submit" class="btn !min-h-[3rem] w-14 bg-accentPurple text-white" aria-label="Invia"><i class="fa-solid fa-paper-plane"></i></button>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- MODALE ANNUNCIO -->
+<div id="annuncio-modal" class="modal fixed inset-0 bg-black/75 backdrop-blur-md z-[90] hidden flex items-end sm:items-center justify-center sm:p-4" onclick="if(event.target===this)closeAnnuncioModal()" role="dialog" aria-modal="true" aria-labelledby="ann-heading">
+  <div class="glass sheet w-full max-w-md p-6 rounded-t-[1.75rem] sm:rounded-[1.75rem]">
+    <div class="flex items-start justify-between mb-5">
+      <div>
+        <h2 id="ann-heading" class="font-bold text-2xl text-white">Nuovo annuncio</h2>
+        <p class="text-xs text-gray-400 mt-1">Sarà visibile subito in bacheca.</p>
+      </div>
+      <button onclick="closeAnnuncioModal()" class="w-10 h-10 -mr-2 -mt-1 rounded-full text-gray-400 hover:text-white hover:bg-white/10 flex items-center justify-center" aria-label="Chiudi"><i class="fa-solid fa-xmark text-lg"></i></button>
+    </div>
+    <form id="annuncio-form" onsubmit="handleAnnuncioSubmit(event)" class="space-y-4">
+      <div><label class="label" for="ann-name">Il tuo nome</label><input type="text" id="ann-name" required autocomplete="given-name" placeholder="Es. Giulia" class="field"></div>
+      <div class="grid grid-cols-2 gap-3">
+        <div><label class="label" for="ann-type">Tipo</label><select id="ann-type" class="field"><option value="ripetizioni">Ripetizioni</option><option value="appunti">Appunti</option></select></div>
+        <div><label class="label" for="ann-loc">Zona</label><input type="text" id="ann-loc" required placeholder="Teramo Centro" class="field"></div>
+      </div>
+      <div><label class="label" for="ann-title">Titolo</label><input type="text" id="ann-title" required placeholder="Es. Ripetizioni di matematica" class="field"></div>
+      <div><label class="label" for="ann-desc">Descrizione</label><textarea id="ann-desc" required rows="3" placeholder="Cosa offri, livello, disponibilità..." class="field resize-none"></textarea></div>
+      <div><label class="label" for="ann-phone">Numero WhatsApp</label><input type="tel" id="ann-phone" required inputmode="tel" autocomplete="tel" placeholder="333 1234567" class="field"></div>
+      <button type="submit" id="ann-submit" class="btn w-full bg-accentNeon text-darkBg shadow-lg shadow-accentNeon/25">Pubblica annuncio</button>
+    </form>
+  </div>
+</div>
+
+<!-- MODALE MATCH / UNISCITI -->
+<div id="booking-modal" class="modal fixed inset-0 bg-black/75 backdrop-blur-md z-[90] hidden flex items-end sm:items-center justify-center sm:p-4" onclick="if(event.target===this)closeBookingModal()" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+  <div class="glass sheet w-full max-w-md p-6 rounded-t-[1.75rem] sm:rounded-[1.75rem]">
+    <div class="flex items-start justify-between mb-5">
+      <div>
+        <h2 id="modal-title" class="font-bold text-2xl text-white">Unisciti a SkillUp</h2>
+        <p id="modal-sub" class="text-xs text-gray-400 mt-1">Ti apriamo WhatsApp con il messaggio già pronto.</p>
+      </div>
+      <button onclick="closeBookingModal()" class="w-10 h-10 -mr-2 -mt-1 rounded-full text-gray-400 hover:text-white hover:bg-white/10 flex items-center justify-center" aria-label="Chiudi"><i class="fa-solid fa-xmark text-lg"></i></button>
+    </div>
+    <form id="booking-form" onsubmit="handleBookingSubmit(event)" class="space-y-4">
+      <div><label class="label" for="bk-name">Il tuo nome</label><input type="text" id="bk-name" required autocomplete="given-name" placeholder="Es. Marco" class="field"></div>
+      <div><label class="label" for="bk-subj">Materia o esigenza</label><input type="text" id="bk-subj" required placeholder="Es. Latino, quinto superiore" class="field"></div>
+      <div><label class="label" for="bk-phone">Il tuo WhatsApp</label><input type="tel" id="bk-phone" required inputmode="tel" autocomplete="tel" placeholder="333 1234567" class="field"></div>
+      <button type="submit" class="btn w-full bg-gradient-to-r from-accentPink to-accentPurple text-white shadow-lg shadow-accentPink/25"><i class="fa-brands fa-whatsapp text-xl"></i>Apri WhatsApp</button>
+    </form>
+  </div>
+</div>
+
+<footer class="mt-auto border-t border-white/5 py-6 px-4 text-center text-xs text-gray-500 hidden md:block">
+  <span class="text-gray-300 font-semibold">SKILLUP ACADEMY © 2026</span> · Teramo
+</footer>
+
+<script>
+const SUPABASE_URL = 'https://mdenkodbtpfqwkfliwcp.supabase.co';
+const SUPABASE_ANON_KEY = 'sb_publishable_1YH1D4zft-_rrg8rORieoA_2PYPH5LD';
+const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+// Numero WhatsApp di SkillUp (formato internazionale, solo cifre, es. 393331234567).
+// Usato per "Unisciti" e come ripiego se un tutor non ha un numero nel database.
+const SKILLUP_WHATSAPP = '';
+
+let tutorList = [];
+let matchTarget = null;
+let annunciList = [], annFilter = 'tutti', annQuery = '';
+
+/* ---------- Utility ---------- */
+function esc(v) {
+  return String(v ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+}
+function normPhone(raw) {
+  let d = String(raw || '').replace(/\D/g, '');
+  if (d.startsWith('00')) d = d.slice(2);
+  if (d.length >= 9 && d.length <= 10 && !d.startsWith('39')) d = '39' + d;
+  return d.length >= 11 ? d : '';
+}
+function waLink(phone, text) {
+  const n = normPhone(phone);
+  return n ? `https://wa.me/${n}?text=${encodeURIComponent(text)}` : '';
+}
+function toast(msg, type = 'success') {
+  const root = document.getElementById('toast-root');
+  const ok = type === 'success';
+  const el = document.createElement('div');
+  el.className = 'toast glass pointer-events-auto flex items-center gap-3 pl-3 pr-4 py-3 rounded-2xl max-w-sm w-full';
+  el.innerHTML = `<span class="w-9 h-9 shrink-0 rounded-full flex items-center justify-center ${ok ? 'bg-accentNeon/15 text-accentNeon' : 'bg-accentPink/15 text-accentPink'}"><i class="fa-solid ${ok ? 'fa-check' : 'fa-triangle-exclamation'}"></i></span><span class="text-sm font-medium text-white">${esc(msg)}</span>`;
+  root.appendChild(el);
+  setTimeout(() => { el.classList.add('out'); setTimeout(() => el.remove(), 260); }, 3800);
+}
+function lockScroll() {
+  const open = !!document.querySelector('.modal:not(.hidden)');
+  document.body.style.overflow = open ? 'hidden' : '';
+}
+function emptyState(icon, color, title, text, btn) {
+  return `<div class="col-span-full w-full text-center py-10 px-4">
+    <div class="w-16 h-16 mx-auto rounded-2xl bg-${color}/10 text-${color} flex items-center justify-center text-2xl mb-4"><i class="fa-solid ${icon}"></i></div>
+    <h3 class="font-bold text-lg text-white mb-1">${title}</h3>
+    <p class="text-sm text-gray-400 max-w-xs mx-auto ${btn ? 'mb-5' : ''}">${text}</p>${btn || ''}</div>`;
+}
+
+/* ---------- Navigazione ---------- */
+document.addEventListener("DOMContentLoaded", () => {
+  switchSection('hub');
+  fetchAnnunci();
+  fetchTutor();
+});
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape') { closeAnnuncioModal(); closeBookingModal(); }
+});
+
+function switchSection(sectionId) {
+  document.querySelectorAll('.section-view').forEach(v => v.classList.remove('active'));
+  const target = document.getElementById('view-' + sectionId);
+  if (target) {
+    target.classList.add('active');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+  document.querySelectorAll('[data-nav]').forEach(b => b.classList.toggle('on', b.dataset.nav === sectionId));
+}
+
+/* ---------- Dati ---------- */
+async function fetchAnnunci() {
+  const grid = document.getElementById('annunci-grid');
+  const { data, error } = await supabaseClient.from('annunci').select('*').order('id', { ascending: false });
+
+  if (error) {
+    grid.innerHTML = emptyState('fa-wifi', 'accentPink', 'Non riusciamo a caricare gli annunci', 'Controlla la connessione e riprova.',
+      `<button onclick="fetchAnnunci()" class="btn px-6 bg-white/5 border border-white/15 text-white">Riprova</button>`);
+    return;
+  }
+  if (!data || data.length === 0) {
+    grid.innerHTML = emptyState('fa-clipboard-list', 'accentNeon', 'Ancora nessun annuncio', 'La bacheca è vuota: pubblica il primo annuncio e aiuta la community.',
+      `<button onclick="openAnnuncioModal()" class="btn px-6 bg-accentNeon text-darkBg">Pubblica il primo annuncio</button>`);
+    return;
+  }
+
+  annunciList = data;
+  countUp('stat-annunci', data.length);
+  renderAnnunci();
+}
+
+function renderAnnunci() {
+  const grid = document.getElementById('annunci-grid');
+  const q = annQuery.toLowerCase();
+  const data = annunciList.filter(i => (annFilter === 'tutti' || (i.tipo || '').toLowerCase() === annFilter)
+    && (!q || [i.titolo, i.descrizione, i.nome, i.zona].join(' ').toLowerCase().includes(q)));
+  document.getElementById('ann-count').textContent = data.length + (data.length === 1 ? ' annuncio' : ' annunci');
+  if (!data.length) {
+    grid.innerHTML = emptyState('fa-magnifying-glass', 'accentBlue', 'Nessun risultato', 'Prova con altre parole o cambia filtro.',
+      `<button onclick="resetFilters()" class="btn px-6 bg-white/5 border border-white/15 text-white">Azzera filtri</button>`);
+    return;
+  }
+  grid.innerHTML = data.map(item => {
+    const isNotes = (item.tipo || '').toLowerCase() === 'appunti';
+    const badge = isNotes ? 'bg-accentPurple/15 text-accentPurple border-accentPurple/25' : 'bg-accentBlue/15 text-accentBlue border-accentBlue/25';
+    const msg = `Ciao ${item.nome || ''}! Ho visto il tuo annuncio "${item.titolo || ''}" su SKILLUP e vorrei avere maggiori informazioni.`;
+    const link = waLink(item.telefono, msg);
+    const cta = link
+      ? `<a href="${esc(link)}" target="_blank" rel="noopener noreferrer" class="btn !min-h-[2.75rem] px-4 !text-sm bg-accentNeon text-darkBg shrink-0"><i class="fa-brands fa-whatsapp text-lg"></i>Contatta</a>`
+      : `<span class="text-xs text-gray-500">Numero non valido</span>`;
+    return `
+      <article class="glass lift p-5 rounded-2xl flex flex-col">
+        <span class="self-start px-2.5 py-1 rounded-full border text-xs font-semibold capitalize ${badge}">${esc(item.tipo || 'Annuncio')}</span>
+        <h3 class="font-bold text-white text-lg mt-3 leading-snug">${esc(item.titolo)}</h3>
+        <p class="text-gray-300 text-sm mt-2 mb-4 leading-relaxed break-words">${esc(item.descrizione)}</p>
+        <div class="mt-auto flex justify-between items-center gap-3 pt-4 border-t border-white/10">
+          <div class="min-w-0 text-sm">
+            <p class="font-semibold text-white truncate">${esc(item.nome)}</p>
+            <p class="text-xs text-gray-400 truncate"><i class="fa-solid fa-location-dot mr-1"></i>${esc(item.zona)}${item.created_at ? ' · ' + timeAgo(item.created_at) : ''}</p>
+          </div>
+          ${cta}
+        </div>
+      </article>`;
+  }).join('');
+}
+
+async function fetchTutor() {
+  const carousel = document.getElementById('tutor-carousel');
+  const { data, error } = await supabaseClient.from('tutor').select('*');
+
+  if (error) {
+    carousel.innerHTML = emptyState('fa-wifi', 'accentPink', 'Tutor non disponibili al momento', 'Controlla la connessione e riprova.',
+      `<button onclick="fetchTutor()" class="btn px-6 bg-white/5 border border-white/15 text-white">Riprova</button>`);
+    return;
+  }
+  if (!data || data.length === 0) {
+    carousel.innerHTML = emptyState('fa-user-graduate', 'accentBlue', 'Nessun tutor registrato', 'Presto qui troverai i profili dei tutor del territorio.');
+    return;
+  }
+
+  tutorList = data;
+  countUp('stat-tutor', data.length);
+  carousel.innerHTML = data.map((tutor, i) => `
+    <article class="carousel-card glass lift p-5 rounded-2xl flex flex-col justify-between">
+      <div>
+        <div class="flex items-center gap-3 mb-3">
+          <div class="w-11 h-11 shrink-0 rounded-full bg-gradient-to-tr from-accentPink to-accentPurple flex items-center justify-center font-display font-bold text-white">${esc((tutor.nome || '?').trim().charAt(0).toUpperCase())}</div>
+          <div class="min-w-0">
+            <h3 class="font-bold text-white leading-tight truncate">${esc(tutor.nome)}</h3>
+            <span class="text-amber-400 text-xs font-semibold">${esc(tutor.rating || '★ 5.0')}</span>
+          </div>
+        </div>
+        <span class="inline-block px-2.5 py-1 rounded-full bg-accentNeon/10 border border-accentNeon/20 text-accentNeon text-xs font-semibold mb-3">${esc(tutor.materia)}</span>
+        <p class="text-sm text-gray-300 bg-black/25 border border-white/5 p-3 rounded-xl mb-4 leading-relaxed">${esc(tutor.bio)}</p>
+      </div>
+      <button onclick="triggerMatchModalByIndex(${i})" class="btn !min-h-[3rem] w-full bg-gradient-to-r from-accentPink to-accentPurple text-white shadow-lg shadow-accentPink/20 !text-sm">Fai match su WhatsApp</button>
+    </article>`).join('');
+}
+
+/* ---------- Annuncio ---------- */
+async function handleAnnuncioSubmit(event) {
+  event.preventDefault();
+  const btn = document.getElementById('ann-submit');
+  const nome = document.getElementById('ann-name').value.trim();
+  const tipo = document.getElementById('ann-type').value;
+  const zona = document.getElementById('ann-loc').value.trim();
+  const titolo = document.getElementById('ann-title').value.trim();
+  const descrizione = document.getElementById('ann-desc').value.trim();
+  const telefono = document.getElementById('ann-phone').value.trim();
+
+  if (!normPhone(telefono)) { toast('Inserisci un numero WhatsApp valido.', 'error'); return; }
+
+  const label = btn.innerHTML;
+  btn.disabled = true;
+  btn.innerHTML = '<i class="fa-solid fa-circle-notch fa-spin"></i>Pubblicazione...';
+
+  const { error } = await supabaseClient.from('annunci').insert([{ nome, tipo, zona, titolo, descrizione, telefono }]);
+
+  btn.disabled = false;
+  btn.innerHTML = label;
+  if (error) { toast("Pubblicazione non riuscita: " + error.message, 'error'); return; }
+
+  document.getElementById('annuncio-form').reset();
+  closeAnnuncioModal();
+  toast('Annuncio pubblicato! Ora è visibile in bacheca.');
+  switchSection('bacheca');
+  fetchAnnunci();
+}
+
+/* ---------- Modali ---------- */
+function openAnnuncioModal() { document.getElementById('annuncio-modal').classList.remove('hidden'); lockScroll(); }
+function closeAnnuncioModal() { document.getElementById('annuncio-modal').classList.add('hidden'); lockScroll(); }
+function openBookingModal() {
+  matchTarget = null;
+  document.getElementById('modal-title').innerText = "Unisciti a SkillUp";
+  document.getElementById('modal-sub').innerText = "Ti apriamo WhatsApp con il messaggio già pronto.";
+  document.getElementById('booking-modal').classList.remove('hidden');
+  lockScroll();
+}
+function closeBookingModal() { document.getElementById('booking-modal').classList.add('hidden'); lockScroll(); }
+function triggerMatchModal(name, phone) {
+  openBookingModal();
+  matchTarget = { name, phone: phone || '' };
+  document.getElementById('modal-title').innerText = "Match con " + name;
+  document.getElementById('modal-sub').innerText = "Presentati: ti apriamo WhatsApp con il messaggio pronto.";
+}
+function triggerMatchModalByIndex(i) {
+  const t = tutorList[i];
+  if (t) triggerMatchModal(t.nome, t.telefono || t.whatsapp);
+}
+function handleBookingSubmit(e) {
+  e.preventDefault();
+  const nome = document.getElementById('bk-name').value.trim();
+  const materia = document.getElementById('bk-subj').value.trim();
+  const tel = document.getElementById('bk-phone').value.trim();
+
+  if (!normPhone(tel)) { toast('Inserisci un numero WhatsApp valido.', 'error'); return; }
+
+  const dest = (matchTarget && matchTarget.phone) || SKILLUP_WHATSAPP;
+  const text = matchTarget
+    ? `Ciao ${matchTarget.name}! Sono ${nome} e ho trovato il tuo profilo su SKILLUP. Cerco aiuto in: ${materia}. Puoi contattarmi su WhatsApp al ${tel}?`
+    : `Ciao! Sono ${nome} e vorrei unirmi a SKILLUP. Cerco: ${materia}. Il mio numero WhatsApp è ${tel}.`;
+  const link = waLink(dest, text);
+
+  if (!link) { toast('Numero WhatsApp di destinazione non configurato.', 'error'); return; }
+
+  window.open(link, '_blank', 'noopener');
+  document.getElementById('booking-form').reset();
+  closeBookingModal();
+  toast('Richiesta pronta: invia il messaggio su WhatsApp.');
+}
+
+/* ---------- Filtri, statistiche, carosello ---------- */
+function setFilter(f) {
+  annFilter = f;
+  document.querySelectorAll('.chip[data-f]').forEach(c => c.classList.toggle('on', c.dataset.f === f));
+  renderAnnunci();
+}
+function onSearch(v) { annQuery = v.trim(); renderAnnunci(); }
+function resetFilters() { annQuery = ''; document.getElementById('ann-search').value = ''; setFilter('tutti'); }
+function scrollCarousel(dir) {
+  document.getElementById('tutor-carousel').scrollBy({ left: dir * 320, behavior: 'smooth' });
+}
+function countUp(id, n) {
+  const el = document.getElementById(id); if (!el) return;
+  const t0 = performance.now(), dur = 900;
+  (function tick(t) {
+    const k = Math.min((t - t0) / dur, 1);
+    el.textContent = Math.round(n * (1 - Math.pow(1 - k, 3)));
+    if (k < 1) requestAnimationFrame(tick);
+  })(t0);
+}
+function timeAgo(d) {
+  const m = Math.floor((Date.now() - new Date(d)) / 60000);
+  if (isNaN(m) || m < 0) return '';
+  if (m < 60) return 'ora';
+  if (m < 1440) return Math.floor(m / 60) + ' h fa';
+  const g = Math.floor(m / 1440);
+  return g === 1 ? 'ieri' : g + ' giorni fa';
+}
+document.addEventListener('pointermove', e => {
+  const c = e.target.closest && e.target.closest('.lift'); if (!c) return;
+  const r = c.getBoundingClientRect();
+  c.style.setProperty('--mx', (e.clientX - r.left) + 'px');
+  c.style.setProperty('--my', (e.clientY - r.top) + 'px');
+});
+
+/* ---------- AI Chat: capisce l'intento e porta nel posto giusto ---------- */
+const AI_ACTIONS = {
+  tutor: { label: 'Vedi i tutor', run: () => { switchSection('hub'); setTimeout(() => document.getElementById('tutor-carousel').scrollIntoView({ behavior: 'smooth', block: 'center' }), 350); } },
+  appunti: { label: 'Apri gli appunti', run: () => { setFilter('appunti'); switchSection('bacheca'); } },
+  ripetizioni: { label: 'Vedi le ripetizioni', run: () => { setFilter('ripetizioni'); switchSection('bacheca'); } },
+  pubblica: { label: 'Pubblica un annuncio', run: () => openAnnuncioModal() }
+};
+function aiReply(t) {
+  t = t.toLowerCase();
+  if (/pubblic|annuncio|offro|vendo/.test(t)) return ['Perfetto, ci vuole un minuto: nome, zona e WhatsApp.', 'pubblica'];
+  if (/appunt|riassunt|schem/.test(t)) return ['Ho trovato la sezione giusta: in bacheca ci sono gli appunti degli studenti.', 'appunti'];
+  if (/tutor|insegnant|prof|lezion/.test(t)) return ['Ecco i tutor del territorio: tocca "Fai match" e scrivi su WhatsApp.', 'tutor'];
+  if (/ripetizion|matematic|latino|inglese|fisic|chimic|greco/.test(t)) return ['Per le ripetizioni guarda gli annunci in bacheca o scegli un tutor.', 'ripetizioni'];
+  return ['Posso aiutarti a trovare un tutor, cercare appunti o pubblicare un annuncio. Cosa preferisci?', null];
+}
+function aiAsk(text) { document.getElementById('ai-input').value = text; handleAiSubmit(new Event('submit')); }
+function aiAction(k) { AI_ACTIONS[k] && AI_ACTIONS[k].run(); }
+function handleAiSubmit(e) {
+  e.preventDefault();
+  const input = document.getElementById('ai-input');
+  const chat = document.getElementById('chat-messages');
+  const text = input.value.trim();
+  if (!text) return;
+  chat.innerHTML += `<div class="bubble-in ml-auto bg-gradient-to-r from-accentBlue to-accentPurple p-3.5 rounded-2xl rounded-tr-md text-white max-w-[88%] break-words">${esc(text)}</div>`;
+  input.value = "";
+  const typing = document.createElement('div');
+  typing.className = 'bubble-in bg-white/5 border border-white/10 px-4 py-3.5 rounded-2xl rounded-tl-md w-fit text-gray-300';
+  typing.innerHTML = '<span class="dot">●</span> <span class="dot">●</span> <span class="dot">●</span>';
+  chat.appendChild(typing);
+  chat.scrollTop = chat.scrollHeight;
+  setTimeout(() => {
+    typing.remove();
+    const [msg, act] = aiReply(text);
+    const btn = act ? `<button onclick="aiAction('${act}')" class="btn !min-h-[2.5rem] px-4 !text-sm bg-accentPurple text-white mt-3">${AI_ACTIONS[act].label}</button>` : '';
+    chat.innerHTML += `<div class="bubble-in bg-white/5 border border-white/10 p-3.5 rounded-2xl rounded-tl-md text-gray-200 max-w-[88%]">${msg}<div>${btn}</div></div>`;
+    chat.scrollTop = chat.scrollHeight;
+  }, 800);
+}
+</script>
+</body>
+</html>
