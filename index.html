@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SKILLUP ACADEMY - Il Tinder delle Ripetizioni e Study Match</title>
+    <title>SKILLUP MATCH - Il Tinder delle Ripetizioni e Study Match</title>
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Google Fonts: Inter & Outfit -->
@@ -48,15 +48,15 @@
         }
 
         .glass-panel:hover {
-            border-color: rgba(168, 85, 247, 0.4);
+            border-color: rgba(255, 45, 85, 0.4);
         }
 
         .glow-effect {
             position: absolute;
-            width: 300px;
-            height: 300px;
+            width: 350px;
+            height: 350px;
             border-radius: 50%;
-            filter: blur(120px);
+            filter: blur(140px);
             pointer-events: none;
             z-index: -1;
         }
@@ -81,8 +81,8 @@
 <body class="selection:bg-matchPink selection:text-white min-h-screen flex flex-col justify-between relative overflow-x-hidden">
 
     <!-- Sfondi luminosi sfumati -->
-    <div class="glow-effect bg-pink-600/20 top-20 left-10"></div>
-    <div class="glow-effect bg-cyan-600/20 top-1/2 right-10"></div>
+    <div class="glow-effect bg-pink-600/15 top-20 left-10"></div>
+    <div class="glow-effect bg-cyan-600/15 top-1/2 right-10"></div>
 
     <!-- NAVBAR SUPERIORE -->
     <header class="glass-panel sticky top-0 z-50 border-b border-white/10 px-6 py-4">
@@ -100,11 +100,11 @@
                 <button onclick="switchSection('hub')" class="px-4 py-2 rounded-xl text-sm font-semibold hover:bg-white/5 transition-colors text-gray-300 hover:text-white">
                     <i class="fa-solid fa-house mr-1.5 text-neonCyan"></i> Hub
                 </button>
-                <button onclick="switchSection('tinder')" class="px-4 py-2 rounded-xl text-sm font-display font-bold bg-matchPink/20 text-matchPink border border-matchPink/30 hover:bg-matchPink/30 transition-all flex items-center gap-1.5">
+                <button onclick="switchSection('tinder')" class="px-4 py-2 rounded-xl text-sm font-display font-bold bg-matchPink/20 text-matchPink border border-matchPink/30 hover:bg-matchPink/30 transition-all flex items-center gap-1.5 shadow-lg shadow-pink-500/10">
                     <i class="fa-solid fa-fire"></i> Study Tinder
                 </button>
                 <button onclick="openBookingModal()" class="px-5 py-2.5 rounded-xl text-sm font-display font-bold bg-gradient-to-r from-matchPink to-neonPurple text-white shadow-lg shadow-pink-600/30 hover:scale-105 transition-transform">
-                    <i class="fa-solid fa-bolt mr-1.5"></i> Prenota Subito
+                    <i class="fa-solid fa-bolt mr-1.5"></i> Diventa Tutor
                 </button>
             </nav>
         </div>
@@ -116,7 +116,7 @@
         <div class="max-w-6xl mx-auto">
             
             <!-- HERO SECTION -->
-            <div class="glass-panel p-8 sm:p-12 rounded-3xl mb-16 relative overflow-hidden">
+            <div class="glass-panel p-8 sm:p-14 rounded-3xl mb-16 relative overflow-hidden">
                 <div class="absolute -right-20 -bottom-20 w-96 h-96 bg-matchPink/10 rounded-full blur-3xl pointer-events-none"></div>
                 
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-10 items-center">
@@ -128,7 +128,7 @@
                             TROVA IL TUO MATCH <br><span class="bg-gradient-to-r from-matchPink to-neonCyan bg-clip-text text-transparent">PERFETTO DI STUDIO.</span>
                         </h1>
                         <p class="text-gray-300 text-base sm:text-lg mb-8 leading-relaxed">
-                            Basta elenchi noiosi. Fai match con i migliori tutor o con compagni di studio nella tua zona in base a materie, obiettivi e geolocalizzazione.
+                            Basta elenchi noiosi o agenzie impersonali. Fai swipe o filtra tra i migliori tutor e compagni di studio nella tua zona in base a materie, geolocalizzazione e obiettivi.
                         </p>
                         <div class="flex flex-wrap gap-4">
                             <button onclick="switchSection('tinder')" class="px-6 py-3.5 rounded-xl font-display font-bold bg-matchPink text-white hover:bg-pink-600 transition-colors shadow-lg shadow-pink-600/30 flex items-center gap-2">
@@ -160,11 +160,11 @@
                             </p>
                             <div class="flex gap-2 mb-4">
                                 <span class="px-2.5 py-1 rounded-full bg-white/5 text-xs text-gray-300 border border-white/10">Matematica</span>
-                                <span class="px-2.5 py-1 rounded-full bg-white/5 text-xs text-gray-300 border border-white/10">Superiori/Università</span>
+                                <span class="px-2.5 py-1 rounded-full bg-white/5 text-xs text-gray-300 border border-white/10">Superiori</span>
                             </div>
                             <div class="flex gap-3">
-                                <button onclick="triggerMatch('Matteo')" class="flex-1 py-2.5 rounded-xl bg-matchPink text-white font-bold text-sm shadow-lg shadow-pink-600/30 hover:scale-105 transition-transform flex items-center justify-center gap-1">
-                                    <i class="fa-solid fa-heart"></i> Super Match!
+                                <button onclick="switchSection('tinder')" class="flex-1 py-2.5 rounded-xl bg-matchPink text-white font-bold text-sm shadow-lg shadow-pink-600/30 hover:scale-105 transition-transform flex items-center justify-center gap-1">
+                                    <i class="fa-solid fa-heart"></i> Apri Radar Match
                                 </button>
                             </div>
                         </div>
@@ -176,11 +176,10 @@
             <div id="worlds-grid" class="mb-16">
                 <div class="text-center max-w-2xl mx-auto mb-12">
                     <span class="text-neonCyan text-sm font-semibold uppercase tracking-widest">Aree Formative</span>
-                    <h2 class="font-display font-extrabold text-3xl sm:text-4xl text-white mt-2">SCEGLI IL TUO LIVELLO SCOLASTICO</h2>
+                    <h2 class="font-display font-extrabold text-3xl sm:text-4xl text-white mt-2">SELEZIONA IL TUO CICLO</h2>
                 </div>
 
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                    <!-- Elementari -->
                     <div onclick="switchSection('elementari')" class="glass-panel p-8 rounded-3xl cursor-pointer group flex flex-col justify-between transition-all duration-300 hover:-translate-y-2 hover:border-amber-400">
                         <div>
                             <div class="flex justify-between items-center mb-6">
@@ -188,14 +187,13 @@
                                 <span class="text-3xl">🎨✨</span>
                             </div>
                             <h3 class="font-display font-bold text-2xl text-white mb-3 group-hover:text-amber-300 transition-colors">Scuola Elementare</h3>
-                            <p class="text-gray-300 text-sm mb-6 leading-relaxed">Vibe Manga & Anime pulita e giocosa. Impara attraverso storie interattive.</p>
+                            <p class="text-gray-300 text-sm mb-6 leading-relaxed">Vibe Manga & Anime pulita. Impara attraverso storie interattive e giochi logici.</p>
                         </div>
                         <div class="flex items-center justify-between text-amber-300 font-display font-bold text-sm">
                             <span>Esplora</span> <i class="fa-solid fa-arrow-right"></i>
                         </div>
                     </div>
 
-                    <!-- Medie -->
                     <div onclick="switchSection('medie')" class="glass-panel p-8 rounded-3xl cursor-pointer group flex flex-col justify-between transition-all duration-300 hover:-translate-y-2 hover:border-neonCyan">
                         <div>
                             <div class="flex justify-between items-center mb-6">
@@ -203,342 +201,7 @@
                                 <span class="text-3xl">🎬⚔️</span>
                             </div>
                             <h3 class="font-display font-bold text-2xl text-white mb-3 group-hover:text-neonCyan transition-colors">Scuola Media</h3>
-                            <p class="text-gray-300 text-sm mb-6 leading-relaxed">Cinema & Mitologia Epica. Grammatica e storia come in un film kolossal.</p>
+                            <p class="text-gray-300 text-sm mb-6 leading-relaxed">Cinema & Mitologia Epica. Grammatica e storia come in un film kolossal in 4K.</p>
                         </div>
                         <div class="flex items-center justify-between text-neonCyan font-display font-bold text-sm">
-                            <span>Esplora</span> <i class="fa-solid fa-arrow-right"></i>
-                        </div>
-                    </div>
-
-                    <!-- Superiori -->
-                    <div onclick="switchSection('superiori')" class="glass-panel p-8 rounded-3xl cursor-pointer group flex flex-col justify-between transition-all duration-300 hover:-translate-y-2 hover:border-neonPurple">
-                        <div>
-                            <div class="flex justify-between items-center mb-6">
-                                <span class="px-3 py-1 rounded-full bg-purple-500/20 text-neonPurple text-xs font-bold border border-purple-500/30">ZONE 03</span>
-                                <span class="text-3xl">🚀🔬</span>
-                            </div>
-                            <h3 class="font-display font-bold text-2xl text-white mb-3 group-hover:text-neonPurple transition-colors">Scuola Superiore</h3>
-                            <p class="text-gray-300 text-sm mb-6 leading-relaxed">Laboratorio Tech & Blueprint. Analisi, fisica e latino logico.</p>
-                        </div>
-                        <div class="flex items-center justify-between text-neonPurple font-display font-bold text-sm">
-                            <span>Esplora</span> <i class="fa-solid fa-arrow-right"></i>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-        </div>
-    </section>
-
-
-    <!-- ==================== STUDY TINDER / MATCH VIEW ==================== -->
-    <section id="view-tinder" class="section-view py-12 px-6 animate-fade">
-        <div class="max-w-4xl mx-auto">
-            <button onclick="switchSection('hub')" class="mb-8 px-4 py-2 rounded-xl text-sm font-semibold glass-panel text-gray-300 hover:text-white inline-flex items-center gap-2">
-                <i class="fa-solid fa-arrow-left"></i> Torna all'Hub Principale
-            </button>
-
-            <div class="text-center mb-10">
-                <span class="px-4 py-1.5 rounded-full bg-matchPink/20 text-matchPink text-xs font-bold border border-matchPink/30 uppercase tracking-widest">
-                    <i class="fa-solid fa-fire mr-1"></i> Studio Tinder & Match Finder
-                </span>
-                <h1 class="font-display font-extrabold text-3xl sm:text-5xl text-white mt-3 mb-2">TROVA IL TUO COMPAGNO O TUTOR</h1>
-                <p class="text-gray-400 text-sm">Filtra per zona, materia ed età. Fai match e inizia subito a studiare in³. wildfire!</p>
-            </div>
-
-            <!-- FILTRI RAPIDI -->
-            <div class="glass-panel p-4 rounded-2xl mb-8 flex flex-wrap gap-4 items-center justify-between">
-                <div class="flex flex-wrap gap-2">
-                    <button onclick="filterProfiles('all')" class="px-4 py-2 rounded-xl bg-matchPink text-white font-bold text-xs shadow-md">Tutti</button>
-                    <button onclick="filterProfiles('matematica')" class="px-4 py-2 rounded-xl bg-white/5 text-gray-300 hover:bg-white/10 font-bold text-xs border border-white/10">Matematica</button>
-                    <button onclick="filterProfiles('latino')" class="px-4 py-2 rounded-xl bg-white/5 text-gray-300 hover:bg-white/10 font-bold text-xs border border-white/10">Latino & Greco</button>
-                    <button onclick="filterProfiles('compagno')" class="px-4 py-2 rounded-xl bg-white/5 text-gray-300 hover:bg-white/10 font-bold text-xs border border-white/10">Compagni Studio</button>
-                </div>
-                <div class="text-xs text-neonCyan font-semibold">
-                    <i class="fa-solid fa-location-dot mr-1"></i> Raggio: Teramo & Dintorni (5 km)
-                </div>
-            </div>
-
-            <!-- GRIGLIA PROFILI TINDER -->
-            <div id="profiles-grid" class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12">
-                
-                <!-- Profilo 1 -->
-                <div class="glass-panel p-6 rounded-3xl profile-card border border-white/10 relative overflow-hidden group" data-category="matematica">
-                    <div class="absolute top-4 right-4 bg-emerald-500/20 text-emerald-300 text-xs font-bold px-2.5 py-1 rounded-full border border-emerald-500/30">
-                        Disponibile Ora
-                    </div>
-                    <div class="flex items-center gap-4 mb-4">
-                        <div class="w-16 h-16 rounded-2xl bg-gradient-to-tr from-purple-600 to-pink-600 flex items-center justify-center font-display font-black text-2xl text-white shadow-lg">
-                            M
-                        </div>
-                        <div>
-                            <h3 class="font-display font-bold text-white text-lg">Matteo B.</h3>
-                            <p class="text-xs text-gray-400">Tutor • 21 anni • <span class="text-neonCyan">A 1.2 km</span></p>
-                        </div>
-                    </div>
-                    <p class="text-sm text-gray-300 mb-4 bg-black/20 p-3 rounded-xl border border-white/5">
-                        "Studio ingegneria. Ti spiego analisi e fisica con schemi visivi immediati. Zero formule a memoria!"
-                    </p>
-                    <div class="flex flex-wrap gap-2 mb-6">
-                        <span class="px-3 py-1 rounded-full bg-white/5 text-xs text-gray-300 border border-white/10">Matematica</span>
-                        <span class="px-3 py-1 rounded-full bg-white/5 text-xs text-gray-300 border border-white/10">Fisica</span>
-                        <span class="px-3 py-1 rounded-full bg-white/5 text-xs text-gray-300 border border-white/10">Superiori</span>
-                    </div>
-                    <div class="flex gap-3">
-                        <button onclick="triggerMatch('Matteo B.')" class="w-full py-3 rounded-xl bg-gradient-to-r from-matchPink to-purple-600 text-white font-display font-bold text-sm shadow-lg shadow-pink-600/30 hover:scale-[1.02] transition-transform flex items-center justify-center gap-2">
-                            <i class="fa-solid fa-heart"></i> Fai Match & Chat
-                        </button>
-                    </div>
-                </div>
-
-                <!-- Profilo 2 -->
-                <div class="glass-panel p-6 rounded-3xl profile-card border border-white/10 relative overflow-hidden group" data-category="latino">
-                    <div class="absolute top-4 right-4 bg-emerald-500/20 text-emerald-300 text-xs font-bold px-2.5 py-1 rounded-full border border-emerald-500/30">
-                        Disponibile Online
-                    </div>
-                    <div class="flex items-center gap-4 mb-4">
-                        <div class="w-16 h-16 rounded-2xl bg-gradient-to-tr from-cyan-600 to-blue-600 flex items-center justify-center font-display font-black text-2xl text-white shadow-lg">
-                            G
-                        </div>
-                        <div>
-                            <h3 class="font-display font-bold text-white text-lg">Giulia R.</h3>
-                            <p class="text-xs text-gray-400">Tutor • 23 anni • <span class="text-neonCyan">Online</span></p>
-                        </div>
-                    </div>
-                    <p class="text-sm text-gray-300 mb-4 bg-black/20 p-3 rounded-xl border border-white/5">
-                        "Laureata in Lettere Classiche. Il latino e il greco visti come codici logici da decodificare facilmente."
-                    </p>
-                    <div class="flex flex-wrap gap-2 mb-6">
-                        <span class="px-3 py-1 rounded-full bg-white/5 text-xs text-gray-300 border border-white/10">Latino</span>
-                        <span class="px-3 py-1 rounded-full bg-white/5 text-xs text-gray-300 border border-white/10">Greco</span>
-                        <span class="px-3 py-1 rounded-full bg-white/5 text-xs text-gray-300 border border-white/10">Letteratura</span>
-                    </div>
-                    <div class="flex gap-3">
-                        <button onclick="triggerMatch('Giulia R.')" class="w-full py-3 rounded-xl bg-gradient-to-r from-matchPink to-purple-600 text-white font-display font-bold text-sm shadow-lg shadow-pink-600/30 hover:scale-[1.02] transition-transform flex items-center justify-center gap-2">
-                            <i class="fa-solid fa-heart"></i> Fai Match & Chat
-                        </button>
-                    </div>
-                </div>
-
-                <!-- Profilo 3 -->
-                <div class="glass-panel p-6 rounded-3xl profile-card border border-white/10 relative overflow-hidden group" data-category="compagno">
-                    <div class="absolute top-4 right-4 bg-purple-500/20 text-purple-300 text-xs font-bold px-2.5 py-1 rounded-full border border-purple-500/30">
-                        Compagno di Studio
-                    </div>
-                    <div class="flex items-center gap-4 mb-4">
-                        <div class="w-16 h-16 rounded-2xl bg-gradient-to-tr from-amber-500 to-red-500 flex items-center justify-center font-display font-black text-2xl text-white shadow-lg">
-                            A
-                        </div>
-                        <div>
-                            <h3 class="font-display font-bold text-white text-lg">Alessio F.</h3>
-                            <p class="text-xs text-gray-400">Studente 4° Superiore • <span class="text-neonCyan">A 800 metri</span></p>
-                        </div>
-                    </div>
-                    <p class="text-sm text-gray-300 mb-4 bg-black/20 p-3 rounded-xl border border-white/5">
-                        "Cerco compagno/a per sessioni di studio pomeridiane in biblioteca o via Zoom per preparare le verifiche di sistemi e informatica."
-                    </p>
-                    <div class="flex flex-wrap gap-2 mb-6">
-                        <span class="px-3 py-1 rounded-full bg-white/5 text-xs text-gray-300 border border-white/10">Informatica</span>
-                        <span class="px-3 py-1 rounded-full bg-white/5 text-xs text-gray-300 border border-white/10">Studio di Gruppo</span>
-                    </div>
-                    <div class="flex gap-3">
-                        <button onclick="triggerMatch('Alessio F.')" class="w-full py-3 rounded-xl bg-gradient-to-r from-matchPink to-purple-600 text-white font-display font-bold text-sm shadow-lg shadow-pink-600/30 hover:scale-[1.02] transition-transform flex items-center justify-center gap-2">
-                            <i class="fa-solid fa-heart"></i> Fai Match & Chat
-                        </button>
-                    </div>
-                </div>
-
-                <!-- Profilo 4 -->
-                <div class="glass-panel p-6 rounded-3xl profile-card border border-white/10 relative overflow-hidden group" data-category="matematica">
-                    <div class="absolute top-4 right-4 bg-emerald-500/20 text-emerald-300 text-xs font-bold px-2.5 py-1 rounded-full border border-emerald-500/30">
-                        Disponibile Ora
-                    </div>
-                    <div class="flex items-center gap-4 mb-4">
-                        <div class="w-16 h-16 rounded-2xl bg-gradient-to-tr from-emerald-600 to-teal-600 flex items-center justify-center font-display font-black text-2xl text-white shadow-lg">
-                            S
-                        </div>
-                        <div>
-                            <h3 class="font-display font-bold text-white text-lg">Sara D.</h3>
-                            <p class="text-xs text-gray-400">Tutor • 22 anni • <span class="text-neonCyan">A 2.5 km</span></p>
-                        </div>
-                    </div>
-                    <p class="text-sm text-gray-300 mb-4 bg-black/20 p-3 rounded-xl border border-white/5">
-                        "Specializzata in aiuto compiti per medie e biennio superiore. Pazienza infinita e metodo super visivo!"
-                    </p>
-                    <div class="flex flex-wrap gap-2 mb-6">
-                        <span class="px-3 py-1 rounded-full bg-white/5 text-xs text-gray-300 border border-white/10">Matematica</span>
-                        <span class="px-3 py-1 rounded-full bg-white/5 text-xs text-gray-300 border border-white/10">Scienze</span>
-                        <span class="px-3 py-1 rounded-full bg-white/5 text-xs text-gray-300 border border-white/10">Medie</span>
-                    </div>
-                    <div class="flex gap-3">
-                        <button onclick="triggerMatch('Sara D.')" class="w-full py-3 rounded-xl bg-gradient-to-r from-matchPink to-purple-600 text-white font-display font-bold text-sm shadow-lg shadow-pink-600/30 hover:scale-[1.02] transition-transform flex items-center justify-center gap-2">
-                            <i class="fa-solid fa-heart"></i> Fai Match & Chat
-                        </button>
-                    </div>
-                </div>
-
-            </div>
-        </div>
-    </section>
-
-
-    <!-- VIEW 1: ELEMENTARI -->
-    <section id="view-elementari" class="section-view py-12 px-6 animate-fade">
-        <div class="max-w-5xl mx-auto">
-            <button onclick="switchSection('hub')" class="mb-8 px-4 py-2 rounded-xl text-sm font-semibold glass-panel text-gray-300 hover:text-white inline-flex items-center gap-2">
-                <i class="fa-solid fa-arrow-left"></i> Torna all'Hub
-            </button>
-            <div class="glass-panel p-8 rounded-3xl mb-8">
-                <h1 class="font-display font-extrabold text-3xl text-white mb-2">Scuola Elementare: La Tana degli Eroi</h1>
-                <p class="text-gray-300 text-sm">Imparare giocando con storie illustrate e superpoteri visivi.</p>
-            </div>
-        </div>
-    </section>
-
-    <!-- VIEW 2: MEDIE -->
-    <section id="view-medie" class="section-view py-12 px-6 animate-fade">
-        <div class="max-w-5xl mx-auto">
-            <button onclick="switchSection('hub')" class="mb-8 px-4 py-2 rounded-xl text-sm font-semibold glass-panel text-gray-300 hover:text-white inline-flex items-center gap-2">
-                <i class="fa-solid fa-arrow-left"></i> Torna all'Hub
-            </button>
-            <div class="glass-panel p-8 rounded-3xl mb-8">
-                <h1 class="font-display font-extrabold text-3xl text-white mb-2">Scuola Media: L'Epica della Conoscenza</h1>
-                <p class="text-gray-300 text-sm">Mitologia, epica e collegamenti cinematografici in 4K.</p>
-            </div>
-        </div>
-    </section>
-
-    <!-- VIEW 3: SUPERIORI -->
-    <section id="view-superiori" class="section-view py-12 px-6 animate-fade">
-        <div class="max-w-5xl mx-auto">
-            <button onclick="switchSection('hub')" class="mb-8 px-4 py-2 rounded-xl text-sm font-semibold glass-panel text-gray-300 hover:text-white inline-flex items-center gap-2">
-                <i class="fa-solid fa-arrow-left"></i> Torna all'Hub
-            </button>
-            <div class="glass-panel p-8 rounded-3xl mb-8">
-                <h1 class="font-display font-extrabold text-3xl text-white mb-2">Scuola Superiore: Il Laboratorio Diretto</h1>
-                <p class="text-gray-300 text-sm">Analisi, fisica e latino logico.</p>
-            </div>
-        </div>
-    </section>
-
-
-    <!-- MODALE DI MATCH / PRENOTAZIONE -->
-    <div id="booking-modal" class="fixed inset-0 bg-black/80 backdrop-blur-md z-50 hidden flex items-center justify-center p-4">
-        <div class="glass-panel w-full max-w-lg p-6 sm:p-8 rounded-3xl relative border border-white/10 shadow-2xl animate-fade">
-            <button onclick="closeBookingModal()" class="absolute top-4 right-4 text-xl text-gray-400 hover:text-white w-9 h-9 rounded-full bg-white/5 flex items-center justify-center transition-colors">
-                <i class="fa-solid fa-xmark"></i>
-            </button>
-
-            <span id="modal-badge" class="text-matchPink text-xs font-bold uppercase tracking-wider"><i class="fa-solid fa-fire mr-1"></i> Instant Match</span>
-            <h2 id="modal-title" class="font-display font-extrabold text-2xl text-white mt-1 mb-2">Connettiti con il Tutor</h2>
-            <p id="modal-desc" class="text-gray-300 text-xs mb-6">Manda una richiesta diretta per avviare la chat o fissare la prima sessione.</p>
-
-            <form onsubmit="handleBookingSubmit(event)" class="space-y-4 text-sm">
-                <div>
-                    <label class="block font-semibold text-gray-300 mb-1">Il tuo Nome:</label>
-                    <input type="text" required placeholder="Es. Alex Rossi" class="w-full bg-black/40 border border-white/10 rounded-xl px-4 py-3 text-white placeholder-gray-500 focus:outline-none focus:border-matchPink">
-                </div>
-
-                <div>
-                    <label class="block font-semibold text-gray-300 mb-1">Materia o Esame da sbloccare:</label>
-                    <input type="text" required placeholder="Es. Matematica / Compiti di gruppo" class="w-full bg-black/40 border border-white/10 rounded-xl px-4 py-3 text-white placeholder-gray-500 focus:outline-none focus:border-matchPink">
-                </div>
-
-                <div>
-                    <label class="block font-semibold text-gray-300 mb-1">Il tuo WhatsApp:</label>
-                    <input type="tel" required placeholder="Es. 333 1234567" class="w-full bg-black/40 border border-white/10 rounded-xl px-4 py-3 text-white placeholder-gray-500 focus:outline-none focus:border-matchPink">
-                </div>
-
-                <button type="submit" class="w-full py-3.5 rounded-xl font-display font-bold bg-gradient-to-r from-matchPink to-purple-600 text-white shadow-lg shadow-pink-600/30 mt-2 hover:scale-[1.01] transition-transform">
-                    Invia Richiesta di Match <i class="fa-solid fa-heart ml-1"></i>
-                </button>
-            </form>
-
-            <div id="success-message" class="hidden mt-4 p-4 rounded-xl bg-pink-500/20 border border-pink-500/40 text-center">
-                <p class="font-display font-bold text-pink-300 text-base">MATCH AVVENUTO! 🔥</p>
-                <p class="text-xs text-gray-300 mt-1">La richiesta è stata inviata con successo. Ti contatteremo su WhatsApp!</p>
-            </div>
-        </div>
-    </div>
-
-
-    <!-- FOOTER -->
-    <footer class="glass-panel border-t border-white/10 py-8 px-6 mt-12 text-center">
-        <div class="max-w-6xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
-            <div class="flex items-center gap-2">
-                <div class="w-7 h-7 rounded-lg bg-matchPink flex items-center justify-center font-display font-bold text-xs text-white">🔥</div>
-                <span class="font-display font-bold text-white text-sm">SKILLUP MATCH © 2026</span>
-            </div>
-            <p class="text-xs text-gray-400">Il primo Tinder delle ripetizioni e dei compagni di studio.</p>
-            <div class="flex gap-3 text-lg">
-                <a href="#" class="w-9 h-9 rounded-xl glass-panel flex items-center justify-center text-gray-300 hover:text-white hover:border-matchPink transition-colors"><i class="fa-brands fa-whatsapp"></i></a>
-                <a href="#" class="w-9 h-9 rounded-xl glass-panel flex items-center justify-center text-gray-300 hover:text-white hover:border-matchPink transition-colors"><i class="fa-brands fa-instagram"></i></a>
-            </div>
-        </div>
-    </footer>
-
-
-    <!-- JAVASCRIPT -->
-    <script>
-        function switchSection(sectionId) {
-            const views = document.querySelectorAll('.section-view');
-            views.forEach(v => v.classList.remove('active'));
-
-            const targetView = document.getElementById('view-' + sectionId);
-            if (targetView) {
-                targetView.classList.add('active');
-                window.scrollTo({ top: 0, behavior: 'smooth' });
-            }
-        }
-
-        function filterProfiles(category) {
-            const cards = document.querySelectorAll('.profile-card');
-            cards.forEach(card => {
-                if (category === 'all' || card.dataset.category === category) {
-                    card.style.display = 'block';
-                } else {
-                    card.style.display = 'none';
-                }
-            });
-        }
-
-        function triggerMatch(name) {
-            const modal = document.getElementById('booking-modal');
-            document.getElementById('modal-title').innerText = "Match con " + name + "! 🔥";
-            document.getElementById('modal-desc').innerText = "Ottima scelta! Stai per metterti in contatto diretto con " + name + ".";
-            modal.classList.remove('hidden');
-            document.getElementById('success-message').classList.add('hidden');
-        }
-
-        function openBookingModal() {
-            const modal = document.getElementById('booking-modal');
-            document.getElementById('modal-title').innerText = "Blocca il tuo Tutor";
-            document.getElementById('modal-desc').innerText = "Compila i dati rapidi. Ti ricontatteremo su WhatsApp in men che non si dica.";
-            modal.classList.remove('hidden');
-            document.getElementById('success-message').classList.add('hidden');
-        }
-
-        function closeBookingModal() {
-            const modal = document.getElementById('booking-modal');
-            modal.classList.add('hidden');
-        }
-
-        function handleBookingSubmit(event) {
-            event.preventDefault();
-            const successDiv = document.getElementById('success-message');
-            successDiv.classList.remove('hidden');
-            
-            setTimeout(() => {
-                closeBookingModal();
-            }, 3000);
-        }
-
-        window.onclick = function(event) {
-            const modal = document.getElementById('booking-modal');
-            if (event.target === modal) {
-                closeBookingModal();
-            }
-        }
-    </script>
-</body>
-</html>
+                            <span>Esplora</span> <i class="fa-solid fa-arrow-
